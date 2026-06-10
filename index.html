@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="robots" content="noindex, nofollow"/>
+<title>MSL — Tomlinson Materials · prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Michroma&family=Inter:wght@400;450;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+ --ink:#15171A;--ink2:#3A3F46;--mut:#6B7178;--mut2:#9AA0A7;--line:#E8E8E4;--line2:#F1F1ED;
+ --bg:#FFFFFF;--surf:#F7F6F3;--surf2:#EFEEE9;--paper:#FAFAF8;
+ --red:#D81F2C;--redh:#B3121E;--redt:#FBE9EB;--green:#1B9A50;--greent:#E9F5EE;--amber:#B9760C;
+ --disp:"Inter",sans-serif;--ui:"Inter",sans-serif;--brand:"Michroma",sans-serif;
+ --sh:0 1px 2px rgba(20,23,26,.05);--sh2:0 4px 16px rgba(20,23,26,.08);--shl:0 14px 40px rgba(20,23,26,.13);
+ --r:10px;--rs:7px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--ui);color:var(--ink);background:var(--bg);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+img,svg{display:block}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.wrap{max-width:1360px;margin:0 auto;padding:0 28px}
+.disp{font-family:var(--disp);font-weight:800;letter-spacing:-.02em}
+.brand{font-family:var(--brand);text-transform:uppercase}
+.tick::before{content:"";display:block;width:30px;height:3px;background:var(--red);border-radius:2px;margin-bottom:13px}
+
+/* ribbon */
+.ribbon{background:#0E0F11;color:#9AA0A7;font-size:11.5px;text-align:center;padding:7px 14px;letter-spacing:.03em}
+.ribbon b{color:#fff;font-weight:600}.ribbon .r{color:#FF5A66;font-weight:700}
+
+/* utility */
+.util{background:var(--surf);border-bottom:1px solid var(--line);font-size:12px;color:var(--mut)}
+.util .wrap{display:flex;align-items:center;justify-content:space-between;height:38px}
+.util .l,.util .r{display:flex;align-items:center;gap:22px}
+.util a:hover{color:var(--ink)}
+.util .dot{width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;margin-right:7px;vertical-align:1px}
+.util b.acct{color:var(--ink);font-weight:600}
+
+/* header */
+header.main{background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.hd{display:flex;align-items:center;gap:30px;height:78px}
+.logo{display:flex;align-items:center;gap:11px;cursor:pointer;flex:0 0 auto}
+.logo .mark{font-family:var(--brand);font-size:21px;letter-spacing:.01em;color:var(--ink);line-height:1;-webkit-text-stroke:0.95px var(--ink);paint-order:stroke fill}
+.logo .mark s{color:var(--red);text-decoration:none;-webkit-text-stroke:0.95px var(--red)}
+.logo .by{font-size:9.5px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.09em;line-height:1.25;border-left:1px solid var(--line);padding-left:11px}
+.logo .by b{color:var(--red)}
+.search{flex:1;position:relative}
+.search input{width:100%;height:48px;border:1px solid var(--line);background:var(--surf);border-radius:var(--r);padding:0 48px 0 44px;font-size:15px;font-family:var(--ui);color:var(--ink);outline:none;transition:.15s}
+.search input:focus{background:#fff;border-color:var(--ink);box-shadow:var(--sh)}
+.search input::placeholder{color:var(--mut2)}
+.search .mag{position:absolute;left:15px;top:14px;width:20px;height:20px;stroke:var(--mut);fill:none;stroke-width:2}
+.search .go{position:absolute;right:7px;top:7px;height:34px;padding:0 14px;background:var(--ink);color:#fff;border-radius:var(--rs);font-weight:600;font-size:13px;transition:.15s}
+.search .go:hover{background:var(--red)}
+.suggest{position:absolute;top:56px;left:0;right:0;background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shl);overflow:hidden;display:none;z-index:60}
+.suggest.on{display:block}
+.sug{display:flex;align-items:center;gap:13px;padding:10px 15px;cursor:pointer;border-bottom:1px solid var(--line2)}
+.sug:last-child{border-bottom:none}.sug:hover{background:var(--surf)}
+.sug .ti{width:42px;height:42px;border-radius:7px;overflow:hidden;flex:0 0 auto;border:1px solid var(--line)}
+.sug .nm{font-weight:600;font-size:13.5px}.sug .sk{font-size:11.5px;color:var(--mut)}
+.sug .pr{margin-left:auto;font-weight:600;font-size:13px}
+.acts{display:flex;align-items:center;gap:4px;flex:0 0 auto}
+.ib{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 13px;border-radius:var(--rs);font-size:11px;font-weight:500;color:var(--ink2);transition:.12s}
+.ib:hover{background:var(--surf)}
+.ib svg{width:21px;height:21px;stroke:var(--ink);fill:none;stroke-width:1.7}
+.ib .badge{position:absolute;margin-top:-7px;margin-left:15px;background:var(--red);color:#fff;font-size:10px;font-weight:700;min-width:17px;height:17px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+
+/* category nav */
+nav.cat{background:#fff;border-bottom:1px solid var(--line)}
+nav.cat .wrap{display:flex;align-items:center;gap:0;height:48px}
+.navi{display:flex;align-items:center;gap:8px;padding:0 16px;height:48px;font-size:13.5px;font-weight:500;color:var(--ink2);border-bottom:2px solid transparent;transition:.12s;white-space:nowrap}
+.navi:first-of-type{padding-left:0}
+.navi:hover{color:var(--red);border-bottom-color:var(--red)}
+.navi.all{background:var(--ink);color:#fff;border-radius:var(--rs);height:36px;padding:0 16px;font-weight:600}
+.navi.all:hover{background:var(--ink2);border-bottom-color:transparent}
+.navi.all svg{width:15px;height:15px;stroke:#fff;stroke-width:2}
+.navsp{flex:1}
+.navi.m{color:var(--mut);font-size:13px}.navi.m:hover{color:var(--ink);border-bottom-color:transparent}
+
+/* views */
+.view{display:none}.view.on{display:block;animation:fade .22s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.shead{display:flex;align-items:flex-end;justify-content:space-between;margin:0 0 20px}
+.shead h2{font-family:var(--disp);font-weight:800;font-size:25px;letter-spacing:-.02em}
+.shead .lk{color:var(--ink);font-weight:600;font-size:13px;display:inline-flex;align-items:center;gap:6px}
+.shead .lk:hover{color:var(--red)}.shead .lk svg{width:13px;height:13px;stroke:currentColor;stroke-width:2.4;fill:none}
+.block{padding:46px 0 0}
+
+/* HERO */
+.hero{padding:40px 0 8px}
+.herogrid{display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:center}
+.hero .ey{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:18px}
+.hero h1{font-family:var(--brand);text-transform:uppercase;font-size:46px;line-height:1.14;letter-spacing:.002em;margin-bottom:24px;-webkit-text-stroke:1.8px var(--ink);paint-order:stroke fill}
+.hero p.l{font-size:18px;color:var(--ink2);max-width:480px;line-height:1.5;margin-bottom:26px}
+.hero .seg{display:flex;gap:9px;margin-bottom:0}
+.hero .seg a{font-size:13px;font-weight:600;padding:10px 16px;border:1px solid var(--line);border-radius:30px;color:var(--ink2);transition:.12s}
+.hero .seg a:hover{border-color:var(--ink);color:var(--ink)}
+.hero .seg a.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.herofeat{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/3.4;box-shadow:var(--sh2);border:1px solid var(--line)}
+.herofeat .sw{position:absolute;inset:0}.herofeat .sw svg{width:100%;height:100%}
+.herofeat .card{position:absolute;left:20px;bottom:20px;right:20px;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-radius:13px;padding:15px 20px 17px;box-shadow:var(--sh2)}
+.herofeat .card .ey2{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--mut2);margin-bottom:6px}
+.herofeat .card .t{font-family:var(--disp);font-weight:700;font-size:24px;letter-spacing:-.03em;line-height:1.02;color:var(--ink)}
+.herofeat .card .s{font-size:12.5px;color:var(--mut);margin-top:6px}
+.herofeat .card .prow{display:flex;align-items:baseline;gap:7px;margin-top:12px}
+.herofeat .card .prow b{font-family:var(--disp);font-weight:800;font-size:16px;letter-spacing:-.01em;color:var(--ink)}
+.herofeat .card .prow span{font-size:12px;color:var(--mut)}
+.herofeat .badge{position:absolute;top:16px;left:16px;background:var(--ink);color:#fff;font-size:11px;font-weight:600;padding:6px 11px;border-radius:6px;letter-spacing:.02em}
+
+/* promo strip (email campaigns on-site) */
+.promos{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:14px;margin-top:30px}
+.pcard{border-radius:14px;padding:24px;position:relative;overflow:hidden;min-height:172px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid var(--line)}
+.pcard .k{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+.pcard h3{font-family:var(--disp);font-weight:800;font-size:23px;line-height:1.04;margin:9px 0 6px;letter-spacing:-.022em;max-width:calc(100% - 28px)}
+.pcard p{font-size:13px;line-height:1.4;max-width:calc(100% - 88px)}
+.pcard .lk{font-size:12.5px;font-weight:700;margin-top:14px;display:inline-flex;align-items:center;gap:7px}
+.pcard .lk svg{width:13px;height:13px;stroke:currentColor;stroke-width:2.6;fill:none}
+.pcard.red{background:var(--red);color:#fff;grid-row:span 1}
+.pcard.red .k{color:rgba(255,255,255,.85)}.pcard.red p{color:rgba(255,255,255,.92)}
+.pcard.dark{background:var(--ink);color:#fff}.pcard.dark .k{color:#FF6671}.pcard.dark p{color:#B6BBC1}
+.pcard.lite{background:var(--surf);color:var(--ink)}.pcard.lite .k{color:var(--red)}.pcard.lite p{color:var(--mut)}
+.pcard .sw{position:absolute;right:-26px;bottom:-26px;width:130px;height:130px;border-radius:18px;overflow:hidden;opacity:.9;border:4px solid rgba(255,255,255,.25)}
+.pcard.lite .sw{border-color:#fff}
+.pcard .sw svg{width:100%;height:100%}
+
+/* trust */
+.trust{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);border-radius:14px;margin-top:30px;background:var(--paper)}
+.trust .ti{display:flex;gap:14px;padding:20px 22px;border-right:1px solid var(--line)}
+.trust .ti:last-child{border-right:none}
+.trust .ic{width:30px;height:30px;flex:0 0 auto}.trust .ic svg{width:30px;height:30px;stroke:var(--red);fill:none;stroke-width:1.6}
+.trust h4{font-size:13.5px;font-weight:700}.trust p{font-size:12px;color:var(--mut);margin-top:3px;line-height:1.35}
+
+/* category tiles */
+.cattiles{display:grid;grid-template-columns:repeat(7,1fr);gap:12px}
+.ctile{border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;transition:.16s;background:#fff}
+.ctile:hover{box-shadow:var(--sh2);transform:translateY(-3px);border-color:#D8D8D2}
+.ctile .sw{aspect-ratio:1/.82;overflow:hidden}.ctile .sw svg{width:100%;height:100%}
+.ctile .lb{padding:12px 13px}
+.ctile .nm{font-size:13px;font-weight:600;line-height:1.2}
+.ctile .ct{font-size:11px;color:var(--mut2);margin-top:3px}
+
+/* product cards */
+.rail{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:13px;overflow:hidden;display:flex;flex-direction:column;transition:.16s}
+.card:hover{box-shadow:var(--sh2);border-color:#D8D8D2}
+.card .imgw{position:relative;aspect-ratio:1/.6;overflow:hidden;cursor:pointer;background:var(--surf)}
+.card .imgw .sw{width:100%;height:100%}.card .imgw .sw svg{width:100%;height:100%}
+.card .flag{position:absolute;top:11px;left:11px;font-size:10px;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:4px 9px;border-radius:5px;backdrop-filter:blur(4px)}
+.flag.sale{background:var(--red);color:#fff}.flag.eco{background:var(--green);color:#fff}.flag.rec{background:rgba(21,23,26,.82);color:#fff}.flag.spec{background:rgba(21,23,26,.82);color:#fff}
+.card .b{padding:14px 15px 15px;display:flex;flex-direction:column;flex:1}
+.card .cat{font-size:10.5px;font-weight:700;color:var(--mut2);text-transform:uppercase;letter-spacing:.08em}
+.card .b{padding-top:15px}
+.card .nm{font-size:17px;font-weight:700;line-height:1.16;margin:6px 0 7px;cursor:pointer;min-height:40px;letter-spacing:-.025em;color:var(--ink)}
+.card .nm:hover{color:var(--red)}
+.card .meta{font-size:12px;color:var(--mut);line-height:1.4}
+.card .meta b{color:var(--ink2);font-weight:600}
+.card .stk{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;margin-top:10px}
+.stk.in{color:var(--green)}.stk.low{color:var(--amber)}.stk.spec{color:var(--mut)}
+.stk .d{width:7px;height:7px;border-radius:50%;background:currentColor}
+.card .foot{margin-top:auto;padding-top:12px;display:flex;align-items:flex-end;justify-content:space-between;gap:8px}
+.price .from{font-size:10.5px;color:var(--mut);font-weight:500;display:block;margin-bottom:-1px}
+.price .p{font-family:var(--disp);font-weight:800;font-size:20px;letter-spacing:-.01em}
+.price .u{font-size:11px;color:var(--mut);font-weight:500}
+.price .q{font-family:var(--disp);font-weight:700;font-size:15px;color:var(--ink2)}
+.addbtn{display:flex;align-items:center;gap:7px;background:var(--ink);color:#fff;font-weight:600;font-size:12.5px;padding:9px 13px;border-radius:var(--rs);white-space:nowrap;transition:.13s}
+.addbtn:hover{background:var(--red)}.addbtn.q{background:#fff;color:var(--ink);border:1px solid var(--line)}.addbtn.q:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+.addbtn svg{width:15px;height:15px;stroke:currentColor;stroke-width:2.2;fill:none}
+.addbtn.added{background:var(--green)!important;color:#fff!important}
+
+/* PLP */
+.plp{padding:26px 0 70px}
+.crumb{font-size:12.5px;color:var(--mut);margin-bottom:16px}
+.crumb a:hover{color:var(--red)}.crumb .sep{margin:0 8px;color:var(--mut2)}
+.plptop{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:8px}
+.plptop h1{font-family:var(--disp);font-weight:800;font-size:30px;letter-spacing:-.02em}
+.plpsub{font-size:14px;color:var(--mut);max-width:620px;margin-bottom:22px;line-height:1.5}
+.plpbody{display:grid;grid-template-columns:240px 1fr;gap:30px}
+.filters{align-self:start;position:sticky;top:142px}
+.fg{border-bottom:1px solid var(--line);padding:16px 0}.fg:first-child{padding-top:0}
+.fg h5{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
+.fo{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:13px;color:var(--ink2);cursor:pointer}
+.fo input{width:16px;height:16px;accent-color:var(--red);cursor:pointer}
+.fo .ct{margin-left:auto;font-size:11.5px;color:var(--mut2)}
+.fo:hover{color:var(--red)}
+.clearf{font-size:12px;color:var(--red);font-weight:600;margin-top:15px;cursor:pointer}.clearf:hover{text-decoration:underline}
+.plpctrl{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:14px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--surf2);color:var(--ink2);font-size:12px;font-weight:600;padding:6px 11px;border-radius:20px;cursor:pointer}
+.chip svg{width:11px;height:11px;stroke:currentColor;stroke-width:2.6;fill:none}.chip:hover{background:var(--redt);color:var(--redh)}
+.sortsel{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--mut);flex:0 0 auto}
+.sortsel select{font-family:var(--ui);font-size:13px;font-weight:600;color:var(--ink);border:1px solid var(--line);border-radius:var(--rs);padding:8px 11px;background:#fff;cursor:pointer}
+.empty{padding:70px;text-align:center;color:var(--mut);grid-column:1/-1}
+
+/* PDP */
+.pdp{padding:26px 0 80px}
+.pdpgrid{display:grid;grid-template-columns:1.15fr 1fr;gap:46px;align-items:start}
+.pdpmedia{position:sticky;top:142px}
+.pdpimg{border-radius:18px;overflow:hidden;aspect-ratio:1/.82;border:1px solid var(--line);box-shadow:var(--sh)}
+.pdpimg .sw{width:100%;height:100%}.pdpimg .sw svg{width:100%;height:100%}
+.pdpthumbs{display:flex;gap:10px;margin-top:12px}
+.pth{width:72px;height:60px;border-radius:9px;overflow:hidden;border:1px solid var(--line);cursor:pointer}
+.pth.on{border:2px solid var(--ink)}.pth .sw{width:100%;height:100%}
+.pdpinfo .cat{font-size:12px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.06em}
+.pdpinfo h1{font-family:var(--disp);font-weight:800;font-size:32px;line-height:1.1;letter-spacing:-.02em;margin:7px 0 10px}
+.pdpinfo .lead{font-size:15px;color:var(--ink2);line-height:1.6;margin-bottom:18px}
+.usefor{margin:18px 0}
+.usefor h4,.specwrap h4,.calc h4{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);margin-bottom:10px}
+.usefor ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.usefor li{font-size:13px;font-weight:500;background:var(--surf);border:1px solid var(--line);border-radius:7px;padding:7px 12px;display:flex;align-items:center;gap:7px}
+.usefor li svg{width:14px;height:14px;stroke:var(--green);stroke-width:2.4;fill:none}
+.specrows{border:1px solid var(--line);border-radius:11px;overflow:hidden}
+.specrows .r{display:grid;grid-template-columns:190px 1fr;font-size:13.5px;border-bottom:1px solid var(--line2)}
+.specrows .r:last-child{border-bottom:none}.specrows .r:nth-child(odd){background:var(--paper)}
+.specrows .k{padding:11px 15px;color:var(--mut);font-weight:500}.specrows .v{padding:11px 15px;font-weight:600}
+.datasheet{display:inline-flex;align-items:center;gap:9px;font-size:13px;font-weight:600;border:1px solid var(--line);border-radius:var(--rs);padding:11px 15px;margin-top:14px;transition:.13s}
+.datasheet:hover{border-color:var(--ink)}.datasheet svg{width:17px;height:17px;stroke:var(--red);stroke-width:1.8;fill:none}
+/* buy box */
+.buybox{border:1px solid var(--line);border-radius:16px;padding:22px;background:#fff;box-shadow:var(--sh)}
+.bb .pl{display:flex;align-items:baseline;gap:8px}
+.bb .from{font-size:12px;color:var(--mut)}
+.bb .p{font-family:var(--disp);font-weight:900;font-size:32px;letter-spacing:-.01em}
+.bb .u{font-size:13px;color:var(--mut);font-weight:500}
+.bb .pq{font-family:var(--disp);font-weight:800;font-size:22px}
+.bb .stk{margin:13px 0}
+.bb .zone{font-size:12px;color:var(--mut);margin-top:-6px;margin-bottom:8px}
+.tiers{border:1px solid var(--line);border-radius:10px;margin:15px 0;overflow:hidden}
+.tiers .th{background:var(--surf);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--mut);padding:8px 13px;display:flex;justify-content:space-between}
+.tiers .tr{display:flex;justify-content:space-between;padding:9px 13px;font-size:13px;border-top:1px solid var(--line2)}
+.tiers .tr b{font-weight:700}.tiers .tr .save{color:var(--green);font-weight:600;font-size:12px}
+/* calculator */
+.calc{border:1px solid var(--line);border-radius:12px;padding:16px;margin:15px 0;background:var(--paper)}
+.calc .row{display:flex;gap:9px;margin-bottom:10px}
+.calc .fieldlet{flex:1}
+.calc label{font-size:11px;color:var(--mut);font-weight:600;display:block;margin-bottom:4px}
+.calc input,.calc select{width:100%;height:38px;border:1px solid var(--line);border-radius:7px;padding:0 10px;font-family:var(--ui);font-size:14px;font-weight:600;outline:none;background:#fff}
+.calc input:focus{border-color:var(--ink)}
+.calc .seg{display:flex;border:1px solid var(--line);border-radius:7px;overflow:hidden;margin-bottom:10px}
+.calc .seg button{flex:1;height:34px;font-size:12.5px;font-weight:600;color:var(--mut);background:#fff}
+.calc .seg button.on{background:var(--ink);color:#fff}
+.calc .res{display:flex;align-items:center;justify-content:space-between;background:var(--ink);color:#fff;border-radius:9px;padding:12px 15px;margin-top:4px}
+.calc .res .big{font-family:var(--disp);font-weight:800;font-size:20px}
+.calc .res .sm{font-size:11.5px;color:#B6BBC1}
+.calc .res button{background:var(--red);color:#fff;font-weight:700;font-size:12.5px;padding:9px 13px;border-radius:7px}
+.calc .res button:hover{background:var(--redh)}
+.qtyrow{display:flex;align-items:center;gap:13px;margin:16px 0}
+.qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.qty button{width:40px;height:44px;font-size:19px;color:var(--ink)}.qty button:hover{background:var(--surf)}
+.qty input{width:64px;height:44px;text-align:center;border:none;border-left:1px solid var(--line);border-right:1px solid var(--line);font-family:var(--ui);font-size:15px;font-weight:600;outline:none}
+.qtyrow .uom{font-size:13px;color:var(--mut)}
+.bigadd{width:100%;background:var(--red);color:#fff;font-weight:700;font-size:15px;padding:16px;border-radius:10px;display:flex;align-items:center;justify-content:center;gap:9px;transition:.13s}
+.bigadd:hover{background:var(--redh)}.bigadd svg{width:18px;height:18px;stroke:#fff;stroke-width:2.2;fill:none}
+.subadd{width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);font-weight:600;font-size:13.5px;padding:12px;border-radius:10px;margin-top:10px}
+.subadd:hover{border-color:var(--ink)}
+.bbfeat{margin-top:17px;border-top:1px solid var(--line);padding-top:15px;display:flex;flex-direction:column;gap:10px}
+.bbfeat .f{display:flex;gap:10px;align-items:center;font-size:12.5px;color:var(--ink2)}
+.bbfeat svg{width:16px;height:16px;stroke:var(--green);stroke-width:1.9;fill:none;flex:0 0 auto}
+.mixtable{margin-top:30px}
+
+/* drawer + modal */
+.scrim{position:fixed;inset:0;background:rgba(15,17,20,.5);opacity:0;pointer-events:none;transition:.25s;z-index:80}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:440px;max-width:92vw;background:#fff;z-index:90;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;box-shadow:var(--shl)}
+.drawer.on{transform:none}
+.dhead{display:flex;align-items:center;justify-content:space-between;padding:19px 22px;border-bottom:1px solid var(--line)}
+.dhead h3{font-family:var(--disp);font-weight:800;font-size:19px}
+.dx{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center}.dx:hover{background:var(--surf)}.dx svg{width:20px;height:20px;stroke:var(--ink);stroke-width:2;fill:none}
+.ditems{flex:1;overflow-y:auto;padding:6px 22px}
+.di{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line2)}
+.di .ti{width:64px;height:54px;border-radius:9px;overflow:hidden;flex:0 0 auto;border:1px solid var(--line)}
+.di .nm{font-size:13px;font-weight:600;line-height:1.3}.di .sk{font-size:11px;color:var(--mut2);margin:2px 0 8px}
+.di .row{display:flex;align-items:center;justify-content:space-between}
+.miniq{display:flex;align-items:center;border:1px solid var(--line);border-radius:7px}
+.miniq button{width:28px;height:28px;font-size:15px}.miniq span{width:34px;text-align:center;font-size:13px;font-weight:600;border-left:1px solid var(--line);border-right:1px solid var(--line);line-height:28px}
+.di .pp{font-weight:700;font-size:13.5px}
+.dempty{padding:70px 22px;text-align:center;color:var(--mut)}.dempty svg{width:44px;height:44px;stroke:var(--mut2);stroke-width:1.5;fill:none;margin:0 auto 12px}
+.dfoot{border-top:1px solid var(--line);padding:20px 22px}
+.dfoot .ln{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);margin-bottom:7px}
+.dfoot .tot{display:flex;justify-content:space-between;font-size:18px;font-weight:800;font-family:var(--disp);margin:9px 0 15px}
+.dfoot .co{width:100%;background:var(--red);color:#fff;font-weight:700;font-size:15px;padding:15px;border-radius:10px}.dfoot .co:hover{background:var(--redh)}
+.dfoot .rq{width:100%;background:#fff;border:1px solid var(--line);font-weight:600;font-size:13.5px;padding:12px;border-radius:10px;margin-top:9px}
+.dfoot .note{font-size:11.5px;color:var(--mut2);text-align:center;margin-top:11px}
+
+/* quote modal */
+.modal{position:fixed;inset:0;z-index:95;display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+.modal.on{display:flex}
+.qbox{background:#fff;border-radius:18px;width:640px;max-width:100%;box-shadow:var(--shl);overflow:hidden;position:relative}
+.qhead{padding:24px 28px 0}
+.qhead .k{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.qhead h2{font-family:var(--disp);font-weight:800;font-size:24px;margin:8px 0 4px;letter-spacing:-.01em}
+.qhead p{font-size:13.5px;color:var(--mut)}
+.qhead .qx{position:absolute;top:20px;right:20px;width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--surf)}
+.qhead .qx:hover{background:var(--surf2)}.qhead .qx svg{width:18px;height:18px;stroke:var(--ink);stroke-width:2;fill:none}
+.qbody{padding:22px 28px 26px}
+.qprod{display:flex;gap:13px;align-items:center;background:var(--surf);border-radius:11px;padding:12px 14px;margin-bottom:20px}
+.qprod .ti{width:48px;height:42px;border-radius:8px;overflow:hidden;border:1px solid var(--line);flex:0 0 auto}
+.qprod .nm{font-weight:600;font-size:14px}.qprod .sk{font-size:11.5px;color:var(--mut)}
+.qgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column}.field.full{grid-column:1/-1}
+.field label{font-size:12px;font-weight:600;color:var(--ink2);margin-bottom:6px}
+.field label .req{color:var(--red)}
+.field input,.field select,.field textarea{height:42px;border:1px solid var(--line);border-radius:8px;padding:0 12px;font-family:var(--ui);font-size:14px;outline:none;background:#fff;color:var(--ink)}
+.field textarea{height:72px;padding:10px 12px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--ink)}
+.qseg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.qseg button{flex:1;height:42px;font-size:13.5px;font-weight:600;color:var(--mut);background:#fff}.qseg button.on{background:var(--ink);color:#fff}
+.qsubmit{width:100%;background:var(--red);color:#fff;font-weight:700;font-size:15px;padding:15px;border-radius:10px;margin-top:20px}.qsubmit:hover{background:var(--redh)}
+.qnote{font-size:11.5px;color:var(--mut2);text-align:center;margin-top:12px}
+.qsuccess{padding:50px 40px;text-align:center}
+.qsuccess .ic{width:64px;height:64px;border-radius:50%;background:var(--greent);display:flex;align-items:center;justify-content:center;margin:0 auto 18px}
+.qsuccess .ic svg{width:32px;height:32px;stroke:var(--green);stroke-width:2.5;fill:none}
+.qsuccess h2{font-family:var(--disp);font-weight:800;font-size:23px;margin-bottom:8px}
+.qsuccess p{font-size:14px;color:var(--mut);max-width:380px;margin:0 auto 20px;line-height:1.5}
+.qsuccess button{background:var(--ink);color:#fff;font-weight:600;font-size:14px;padding:13px 26px;border-radius:9px}
+
+/* footer */
+footer.f{background:var(--ink);color:#9AA0A7;margin-top:60px;padding:54px 0 30px}
+footer.f .cols{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:34px}
+footer.f h5{color:#fff;font-size:11.5px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;font-weight:700}
+footer.f a{display:block;font-size:13px;padding:4px 0;color:#9AA0A7}footer.f a:hover{color:#fff}
+footer.f .mk{font-family:var(--brand);font-size:18px;color:#fff;margin-bottom:13px;letter-spacing:.01em;-webkit-text-stroke:0.75px #fff;paint-order:stroke fill}footer.f .mk s{color:var(--red);-webkit-text-stroke:0.75px var(--red)}
+footer.f .ab{font-size:13px;line-height:1.65;max-width:290px}
+footer.f .bot{border-top:1px solid #2A2F37;margin-top:34px;padding-top:20px;font-size:12px;display:flex;justify-content:space-between;color:#6E747B}
+
+.toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(18px);background:var(--ink);color:#fff;font-size:13.5px;font-weight:600;padding:14px 22px;border-radius:11px;box-shadow:var(--shl);display:flex;align-items:center;gap:11px;opacity:0;pointer-events:none;transition:.25s;z-index:100}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}.toast svg{width:18px;height:18px;stroke:#5BE08C;stroke-width:2.6;fill:none}
+
+@media(max-width:1100px){.herogrid{grid-template-columns:1fr}.hero h1{font-size:34px;-webkit-text-stroke:0.7px var(--ink)}.promos{grid-template-columns:1fr}.cattiles{grid-template-columns:repeat(3,1fr)}.rail{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:repeat(3,1fr)}.trust{grid-template-columns:repeat(2,1fr)}.pdpgrid{grid-template-columns:1fr}.pdpmedia{position:static}.plpbody{grid-template-columns:1fr}.filters{position:static}.qgrid{grid-template-columns:1fr}}
+
+/* micro-interactions */
+header.main{transition:box-shadow .3s ease}
+header.main.scrolled{box-shadow:0 5px 22px rgba(20,23,26,.07)}
+.navi,.ib,.ctile,.card,.addbtn,.bigadd,.subadd,.chip,.fo,.seg a,.datasheet{transition:all .2s cubic-bezier(.22,.61,.36,1)}
+@media(prefers-reduced-motion:no-preference){
+ .reveal{opacity:0;transform:translateY(18px);transition:opacity .65s cubic-bezier(.22,.61,.36,1),transform .65s cubic-bezier(.22,.61,.36,1)}
+ .reveal.in{opacity:1;transform:none}
+ .card .imgw .sw,.ctile .sw svg,.herofeat>.sw{transition:transform .6s cubic-bezier(.22,.61,.36,1)}
+ .card:hover .imgw .sw{transform:scale(1.07)}
+ .ctile:hover .sw svg{transform:scale(1.06)}
+ .herofeat:hover>.sw{transform:scale(1.04)}
+ .addbtn:active,.bigadd:active,.subadd:active,.qsubmit:active,.dfoot .co:active{transform:scale(.96)}
+ .ib .badge.bump{animation:bump .55s cubic-bezier(.22,.61,.36,1)}
+ @keyframes bump{0%{transform:scale(1)}30%{transform:scale(1.45)}100%{transform:scale(1)}}
+ .hero .ey{animation:rise .7s both cubic-bezier(.22,.61,.36,1)}
+ .hero h1{animation:rise .8s .07s both cubic-bezier(.22,.61,.36,1)}
+ .hero p.l{animation:rise .8s .15s both cubic-bezier(.22,.61,.36,1)}
+ .hero .seg{animation:rise .8s .23s both cubic-bezier(.22,.61,.36,1)}
+ .herofeat{animation:rise .95s .14s both cubic-bezier(.22,.61,.36,1)}
+ @keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+ .qbox{animation:pop .34s cubic-bezier(.22,.61,.36,1)}
+ @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+ .calc .res .big{transition:transform .28s cubic-bezier(.22,.61,.36,1)}
+ .calc .res.flash .big{transform:scale(1.08)}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<filter id="mslGrain"><feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+<radialGradient id="mslVig" cx="0.5" cy="0.38" r="0.8"><stop offset="0.5" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.17"/></radialGradient>
+</defs></svg>
+<div class="ribbon">PROTOTYPE · <b>MSL — Tomlinson Materials storefront concept</b> · by <a href="https://sitepartners.ca/" target="_blank" rel="noopener" class="r">Site.</a> · sample data, not a live store</div>
+
+<div class="util"><div class="wrap">
+  <div class="l"><span><span class="dot"></span>25 pits &amp; quarries · Ottawa · Kemptville · Brechin · Napanee</span><a href="#">Find a yard</a><a href="#">Delivery &amp; will-call</a></div>
+  <div class="r"><span>CCIL-certified · GPS-tracked delivery</span><a href="#">1-613-690-3311</a><a href="#"><b class="acct">Trade account login →</b></a></div>
+</div></div>
+
+<header class="main"><div class="wrap hd">
+  <div class="logo" onclick="go('home')">
+    <span class="mark">MSL<s>.</s></span>
+    <span class="by">A <b>TOMLINSON</b><br>COMPANY</span>
+  </div>
+  <div class="search">
+    <svg class="mag" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4" stroke-linecap="round"/></svg>
+    <input id="q" placeholder="Search materials, specs (e.g. Granular A, 19mm clear, HL3)…" autocomplete="off" aria-label="Search products"/>
+    <button class="go" onclick="runSearch()">Search</button>
+    <div class="suggest" id="suggest"></div>
+  </div>
+  <div class="acts">
+    <button class="ib" onclick="toast('Account — prototype')"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>Account</button>
+    <button class="ib" onclick="go('plp',{list:'reorder',title:'Buy again'})"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v4h4"/></svg>Reorder</button>
+    <button class="ib" onclick="openCart()" style="position:relative" aria-label="Open order"><span class="badge" id="cbadge" style="display:none">0</span><svg viewBox="0 0 24 24"><path d="M6 6h15l-1.6 9h-12z"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M6 6 5 3H2"/></svg>Order</button>
+  </div>
+</div></header>
+
+<nav class="cat"><div class="wrap">
+  <button class="navi all" onclick="go('plp',{title:'All materials'})"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16"/></svg>All materials</button>
+  <span id="catnav" style="display:flex;align-items:center;margin-left:16px"></span>
+  <span class="navsp"></span>
+  <a class="navi m" href="#">Calculators</a><a class="navi m" href="#">Spec sheets</a><a class="navi m" style="color:var(--red);font-weight:700" href="#">Bulk pricing</a>
+</div></nav>
+
+<div class="view on" id="view-home"><div class="wrap">
+  <div class="hero"><div class="herogrid">
+    <div>
+      <div class="ey">25 pits &amp; quarries · delivered across Eastern Ontario</div>
+      <h1>Everything<br>the job needs.</h1>
+      <p class="l">Aggregates, asphalt, ready-mix concrete and more — spec’d, priced and delivered from 25 pits and quarries across Eastern Ontario.</p>
+      <div class="seg"><a class="on" href="#">Contractors</a><a href="#">Municipal</a><a href="#">Landscapers</a><a href="#">Homeowners</a></div>
+    </div>
+    <div class="herofeat" id="herofeat"></div>
+  </div></div>
+
+  <div class="promos" id="promos"></div>
+  <div class="trust" id="trust"></div>
+
+  <div class="block"><div class="shead"><h2 class="tick">Shop by material</h2><a class="lk" href="#" onclick="go('plp',{title:'All materials'});return false">All materials <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    <div class="cattiles" id="cattiles"></div></div>
+
+  <div class="block"><div class="shead"><h2 class="tick">Buy again</h2><a class="lk" href="#" onclick="go('plp',{list:'reorder',title:'Buy again'});return false">Order history <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    <div class="rail" id="reorder"></div></div>
+
+  <div class="block"><div class="shead"><h2 class="tick">Most ordered this season</h2><a class="lk" href="#" onclick="go('plp',{title:'All materials'});return false">View all <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    <div class="grid" id="popular"></div></div>
+</div></div>
+
+<div class="view" id="view-plp"><div class="wrap plp">
+  <div class="crumb"><a href="#" onclick="go('home');return false">Home</a><span class="sep">/</span><span id="plpcrumb">All materials</span></div>
+  <div class="plptop"><h1 id="plptitle">All materials</h1><div class="meta" style="font-size:13px;color:var(--mut)"><span id="plpcount">0</span> products</div></div>
+  <p class="plpsub" id="plpsub"></p>
+  <div class="plpbody"><aside class="filters" id="filters"></aside>
+    <div><div class="plpctrl"><div class="chips" id="chips"></div>
+      <div class="sortsel">Sort<select id="sort" onchange="renderGrid()"><option value="rel">Relevance</option><option value="plo">Price: low to high</option><option value="phi">Price: high to low</option><option value="az">Name: A–Z</option></select></div></div>
+      <div class="grid" id="plpgrid"></div></div></div>
+</div></div>
+
+<div class="view" id="view-pdp"><div class="wrap pdp" id="pdpwrap"></div></div>
+
+<div class="scrim" id="scrim" onclick="closeCart()"></div>
+<aside class="drawer" id="drawer" aria-label="Your order">
+  <div class="dhead"><h3>Your order</h3><button class="dx" onclick="closeCart()" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="ditems" id="ditems"></div><div class="dfoot" id="dfoot"></div>
+</aside>
+
+<div class="modal" id="modal"><div class="qbox" id="qbox"></div></div>
+
+<div class="toast" id="toast"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span id="toasttext">Added to order</span></div>
+
+<footer class="f"><div class="wrap">
+  <div class="cols">
+    <div><div class="mk">MSL<s>.</s></div><p class="ab">Tomlinson Materials Supply. Aggregates, asphalt, concrete and more — from 25 pits and quarries across Eastern Ontario. Spec’d right, on time, on site.</p></div>
+    <div><h5>Materials</h5><a href="#">Aggregates</a><a href="#">Asphalt</a><a href="#">Ready-mix concrete</a><a href="#">Ontario Trap Rock</a><a href="#">Winter &amp; de-icing</a></div>
+    <div><h5>Trade</h5><a href="#">Open an account</a><a href="#">Delivery &amp; will-call</a><a href="#">Calculators</a><a href="#">Spec sheets &amp; SDS</a></div>
+    <div><h5>Support</h5><a href="#">Request a quote</a><a href="#">Order status &amp; e-tickets</a><a href="#">Quality &amp; certifications</a><a href="#">1-613-690-3311</a></div>
+  </div>
+  <div class="bot"><span>© 2026 MSL · A Tomlinson Company · CCIL-certified</span><span>Prototype concept — Site.</span></div>
+</div></footer>
+
+<script>
+/* ---------- seeded material textures ---------- */
+function rng(s){return function(){s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const SW={
+ granA:{bg:'#B6AF9E',c:['#A49B86','#C6BEA9','#8E8472','#D4CCB6'],n:150,mn:1.4,mx:5.5,ang:1},
+ granB:{bg:'#ADA690',c:['#9B927B','#BEB59C','#857B64'],n:130,mn:1.6,mx:6.5,ang:1},
+ clear:{bg:'#C9C6BC',c:['#B7B3A6','#D8D5CB','#A8A394','#E2DFD4'],n:46,mn:6,mx:13,ang:1},
+ clearS:{bg:'#CBC8BE',c:['#BAB6A9','#DAD7CD','#ABA697'],n:90,mn:3,mx:6.5,ang:1},
+ sand:{bg:'#D7C9A2',c:['#CDBE96','#E3D7B4','#C0AF83','#EADFC2'],n:430,mn:.7,mx:1.9,ang:0},
+ screen:{bg:'#B9B2A1',c:['#A89F8A','#C9C2AE','#928974'],n:300,mn:.8,mx:2.6,ang:0},
+ asphalt:{bg:'#2D2E30',c:['#242527','#3C3E41','#535860','#1C1D1F'],n:120,mn:1.5,mx:5,ang:1},
+ concrete:{bg:'#BCBEC0',c:['#ACAEB0','#CDCFD1','#9A9C9E','#878482'],n:170,mn:.8,mx:3.4,ang:0},
+ salt:{bg:'#E7EAEC',c:['#FFFFFF','#D7DCE0','#F2F5F7','#C8CED3'],n:80,mn:3.5,mx:8,ang:1},
+ saltm:{bg:'#CFC9BE',c:['#E9ECEE','#B6AE9C','#A89D86','#DFE2E4'],n:170,mn:1.6,mx:4,ang:1},
+ trap:{bg:'#383C43',c:['#2C3038','#474D57','#565D68','#22262C'],n:62,mn:6,mx:12,ang:1},
+ river:{bg:'#BAB7AE',c:['#A8A497','#C8C5BB','#9B8D79','#B58A6B','#8C9099'],n:26,mn:9,mx:17,round:1},
+ topsoil:{bg:'#42342A',c:['#362A21','#4D3C2F','#5A4636','#2C2118'],n:380,mn:.8,mx:2.1,ang:0},
+ mulch:{bg:'#5C4027',c:['#48311E','#6C4C2F','#3A2818','#7A573A'],strand:1,n:90},
+ rca:{bg:'#ABA69B',c:['#9A9489','#C7C3B9','#C98B86','#8E938F','#D8AEA9'],n:80,mn:2,mx:7,ang:1},
+ lime:{bg:'#DFDDD4',c:['#D4D2C8','#ECEAE1','#C9C7BD'],n:500,mn:.5,mx:1.4,ang:0},
+};
+function shade(h,a){h=h.replace('#','');const f=i=>Math.max(0,Math.min(255,parseInt(h.substr(i,2),16)+a)).toString(16).padStart(2,'0');return '#'+f(0)+f(2)+f(4);}
+function swatch(t,seed){const c=SW[t]||SW.granA,r=rng(seed*97+31),gid='msg'+seed,lite=shade(c.bg,24),dark=shade(c.bg,-20);
+ let s=`<svg class="sw" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img"><defs><linearGradient id="${gid}" x1="0" y1="0" x2="0.6" y2="1"><stop offset="0" stop-color="${lite}"/><stop offset="0.5" stop-color="${c.bg}"/><stop offset="1" stop-color="${dark}"/></linearGradient></defs><rect width="100" height="100" fill="url(#${gid})"/>`;
+ const n=c.n||120;
+ for(let i=0;i<n;i++){const x=(r()*104-2).toFixed(1),y=(r()*104-2).toFixed(1),sz=c.mn+r()*(c.mx-c.mn),col=c.c[(r()*c.c.length)|0],op=(.72+r()*.26).toFixed(2);
+  if(c.strand){const w=(sz*.45).toFixed(1),h=(sz*2.6).toFixed(1),rot=(r()*360).toFixed(0);s+=`<rect x="${x}" y="${y}" width="${h}" height="${w}" rx="${w/2}" fill="${col}" opacity="${op}" transform="rotate(${rot} ${x} ${y})"/>`;}
+  else if(c.round){s+=`<circle cx="${x}" cy="${y}" r="${(sz/2).toFixed(1)}" fill="${col}" opacity="${op}"/>`;}
+  else if(c.ang){const k=3+((r()*3)|0),pts=[];for(let j=0;j<k;j++){const a=(j/k)*6.283+r()*1.1,rr=sz/2*(.62+r()*.62);pts.push(`${(x*1+Math.cos(a)*rr).toFixed(1)},${(y*1+Math.sin(a)*rr).toFixed(1)}`);}s+=`<polygon points="${pts.join(' ')}" fill="${col}" opacity="${op}"/>`;}
+  else{s+=`<circle cx="${x}" cy="${y}" r="${(sz/2).toFixed(1)}" fill="${col}" opacity="${op}"/>`;}}
+ s+=`<rect width="100" height="100" filter="url(#mslGrain)" opacity="0.4" style="mix-blend-mode:overlay"/><rect width="100" height="100" fill="url(#mslVig)"/>`;
+ return s+'</svg>';}
+
+/* ---------- categories ---------- */
+const CATS=[
+ {id:'agg',name:'Aggregates',sw:'granA',blurb:'Crushed stone, gravel, sand and granular — natural, manufactured and recycled, from 25 pits and quarries.'},
+ {id:'asph',name:'Asphalt',sw:'asphalt',blurb:'Over 50 hot-mix designs, from driveway mix to Superpave and SMA. CCIL-certified, by the tonne.'},
+ {id:'conc',name:'Ready-Mix Concrete',sw:'concrete',blurb:'Residential to commercial mix classes by strength, plus E-Line Enviro low-carbon and specialty mixes.'},
+ {id:'trap',name:'Ontario Trap Rock',sw:'trap',blurb:'Premium high-friction, skid-resistant igneous aggregate for surface-course asphalt.'},
+ {id:'winter',name:'Winter & De-Icing',sw:'salt',blurb:'Bulk road salt, treated salt and winter sand. Lock in tonnage before the season.'},
+ {id:'land',name:'Landscape & Decorative',sw:'river',blurb:'Riverstone, decorative stone, screened topsoil and mulch — by the yard or tonne.'},
+ {id:'lime',name:'Agricultural Lime',sw:'lime',blurb:'Aglime and pelletized lime for soil pH and conditioning, by the tonne.'},
+];
+const CN=Object.fromEntries(CATS.map(c=>[c.id,c.name]));
+
+/* ---------- products (real Tomlinson lines) ---------- */
+let U=2000;
+function P(o){o.id=++U;return o;}
+const PRODUCTS=[
+ // AGGREGATES
+ P({n:'Granular A',c:'agg',sw:'granA',u:'tonne',p:16.50,o:'cart',den:2.20,std:'OPSS.PROV 1010',sz:'26.5 mm minus, well-graded',use:['Road & driveway base','Under asphalt','Under concrete slab','Compacted sub-base'],desc:'The workhorse base material. A dense-graded crushed stone that compacts to a tight, load-bearing base under asphalt, concrete and interlock. Produced and tested daily to OPSS.PROV 1010.',st:'in',fl:'',pop:1,tr:[[1,16.50],[20,15.25],[100,13.95]],src:'Quarry'}),
+ P({n:'Granular B Type II',c:'agg',sw:'granB',u:'tonne',p:13.75,o:'cart',den:2.10,std:'OPSS.PROV 1010',sz:'150 mm minus',use:['Deep sub-base','Fill & lifts','Soft-ground stabilization'],desc:'A coarse sub-base for building up grade and stabilizing soft ground beneath a Granular A base. Economical structural fill that drains and compacts well.',st:'in',fl:'',pop:0,tr:[[1,13.75],[20,12.50],[100,11.25]],src:'Quarry'}),
+ P({n:'19 mm Clear Stone',c:'agg',sw:'clear',u:'tonne',p:34.00,o:'cart',den:1.55,std:'Washed, no fines',sz:'5–20 mm, angular',use:['Drainage','Weeping tile','Under-slab','Septic beds'],desc:'Washed, fractured ¾" stone with no fines — water moves straight through. The default for foundation drainage, weeping tile surround and under-slab base.',st:'in',fl:'',pop:1,tr:[[1,34.00],[20,31.50],[100,28.95]],src:'Quarry'}),
+ P({n:'50 mm Clear Stone (2")',c:'agg',sw:'clear',u:'tonne',p:31.00,o:'cart',den:1.50,std:'Washed, no fines',sz:'20–50 mm, angular',use:['Mud mat / site access','Heavy drainage','Erosion armour'],desc:'Large washed clear stone for temporary site-access mud mats, heavy drainage and erosion control where bigger stone holds the grade.',st:'in',fl:'',pop:0,tr:[[1,31.00],[20,28.75],[100,26.50]],src:'Quarry'}),
+ P({n:'HPB — High Performance Bedding (7 mm)',c:'agg',sw:'clearS',u:'tonne',p:42.00,o:'cart',den:1.70,std:'Washed clear chip',sz:'7 mm clear',use:['Pipe bedding','Interlock base','Setting bed'],desc:'Clean 7 mm clear chip that beds and screeds easily without compaction — the standard bedding for pipe, and a stable base layer for interlock and slabs.',st:'in',fl:'',pop:1,tr:[[1,42.00],[20,39.00],[100,35.95]],src:'Quarry'}),
+ P({n:'⅝" Crusher Run (Granular)',c:'agg',sw:'granA',u:'tonne',p:18.00,o:'cart',den:2.15,std:'Crushed, with fines',sz:'16 mm minus',use:['Driveways','Pathways','Compacted base'],desc:'Crushed stone with fines that binds and compacts into a hard driveway or pathway surface. A budget base where a smaller top size is preferred.',st:'in',fl:'',pop:0,tr:[[1,18.00],[20,16.75],[100,15.25]],src:'Quarry'}),
+ P({n:'Concrete Sand',c:'agg',sw:'sand',u:'tonne',p:22.50,o:'cart',den:1.60,std:'CSA A23.1 fine agg.',sz:'Fine, washed',use:['Ready-mix & precast','Pipe bedding','Paver base'],desc:'Washed, well-graded fine aggregate meeting CSA A23.1 for concrete production, plus pipe bedding and a base under pavers.',st:'in',fl:'',pop:0,tr:[[1,22.50],[20,20.95],[100,18.95]],src:'Sand & gravel'}),
+ P({n:'Mason / Bedding Sand',c:'agg',sw:'sand',u:'tonne',p:26.00,o:'cart',den:1.55,std:'Fine, screened',sz:'Fine, uniform',use:['Masonry mortar','Paver joint & bed','Sandbox'],desc:'A clean, fine screened sand for masonry mortar, paver bedding and joints. Consistent gradation for a smooth, level setting bed.',st:'low',fl:'',pop:0,tr:[[1,26.00],[20,24.00]],src:'Sand & gravel'}),
+ P({n:'Stone Dust / Screenings',c:'agg',sw:'screen',u:'tonne',p:24.00,o:'cart',den:1.70,std:'Crusher fines',sz:'6 mm minus',use:['Interlock setting bed','Flagstone base','Pathways'],desc:'Fine crusher screenings that screed flat and lock up firm — the traditional setting bed under interlock pavers and flagstone.',st:'in',fl:'',pop:1,tr:[[1,24.00],[20,22.25],[100,20.25]],src:'Quarry'}),
+ P({n:'Riverstone 20–40 mm',c:'agg',sw:'river',u:'tonne',p:58.00,o:'cart',den:1.60,std:'Natural, rounded',sz:'20–40 mm',use:['Decorative beds','Drainage swales','Dry creek beds'],desc:'Smooth, naturally rounded river rock in mixed earth tones — equally at home in a decorative bed or a functioning drainage swale.',st:'in',fl:'',pop:0,tr:[[1,58.00],[10,54.00]],src:'Sand & gravel'}),
+ P({n:'Recycled Crushed Concrete (RCA)',c:'agg',sw:'rca',u:'tonne',p:12.00,o:'cart',den:1.90,std:'OPSS-approved recycled',sz:'Granular, with fines',use:['Granular base','Fill','Site access'],desc:'Crushed, screened recycled concrete that meets City of Ottawa and Provincial granular specs — the same performance as virgin granular at a lower price and a lower footprint. Part of ~100,000 tonnes diverted from landfill each year.',st:'in',fl:'rec',pop:1,tr:[[1,12.00],[20,10.95],[100,9.75]],src:'Recycled'}),
+ P({n:'Recycled Asphalt (RAP)',c:'agg',sw:'asphalt',u:'tonne',p:14.00,o:'cart',den:1.80,std:'Reclaimed asphalt',sz:'Granular',use:['Driveways','Laneways','Compacted base'],desc:'Reclaimed, crushed asphalt that re-compacts into an economical, dust-free driveway or laneway surface that firms up in the sun.',st:'in',fl:'rec',pop:0,tr:[[1,14.00],[20,12.95],[100,11.50]],src:'Recycled'}),
+ // ASPHALT (quote)
+ P({n:'HL3 Surface Mix',c:'asph',sw:'asphalt',u:'tonne',p:null,o:'quote',den:2.40,std:'OPSS / Marshall',sz:'Surface course',use:['Driveways','Parking lots','Top lift / surface'],desc:'The standard Marshall-designed surface course for driveways and lots — a fine, dense top lift that finishes smooth and tight. PG58-34 binder, produced and tested to OPSS.',st:'in',fl:'',pop:1,src:'Plant',attrs:{'Mix type':'HL3 surface','Binder grade':'PG 58-34','Design':'Marshall','Top size':'13.2 mm'}}),
+ P({n:'HL8 Binder Mix',c:'asph',sw:'asphalt',u:'tonne',p:null,o:'quote',den:2.40,std:'OPSS / Marshall',sz:'Binder course',use:['Base / binder lift','Heavy loads','Under HL3'],desc:'A coarser binder-course lift placed beneath an HL3 surface to carry structural load. The strength layer of a two-lift pavement.',st:'in',fl:'',pop:0,src:'Plant',attrs:{'Mix type':'HL8 binder','Binder grade':'PG 58-34','Design':'Marshall','Top size':'19 mm'}}),
+ P({n:'Superpave SP12.5 FC1',c:'asph',sw:'asphalt',u:'tonne',p:null,o:'quote',den:2.41,std:'OPSS Superpave',sz:'Surface course',use:['Municipal roads','Collector roads','Surface course'],desc:'Gyratory-designed Superpave surface mix engineered for traffic and climate — the modern surface course for municipal and collector roads.',st:'in',fl:'',pop:0,src:'Plant',attrs:{'Mix type':'SP 12.5 FC1','Design':'Superpave gyratory','Traffic':'FC1','Top size':'12.5 mm'}}),
+ P({n:'Driveway Mix',c:'asph',sw:'asphalt',u:'tonne',p:null,o:'quote',den:2.38,std:'Residential',sz:'Surface course',use:['Residential driveways','Pathways','Small lots'],desc:'A workable, fine residential surface mix that lays and finishes beautifully by hand — built for driveways and pathways.',st:'in',fl:'',pop:1,src:'Plant',attrs:{'Mix type':'Driveway / residential','Design':'Marshall','Top size':'9.5 mm'}}),
+ P({n:'FC2 Friction Course',c:'asph',sw:'asphalt',u:'tonne',p:null,o:'quote',den:2.42,std:'OPSS FC2',sz:'High-friction surface',use:['High-speed roads','High-skid demand','Provincial surface'],desc:'A high-friction surface course — often produced with Ontario Trap Rock for its skid resistance — for high-speed and high-demand pavements.',st:'in',fl:'',pop:0,src:'Plant',attrs:{'Mix type':'FC2 friction course','Aggregate':'High-PSV (Trap Rock)','Use':'Surface, high friction'}}),
+ P({n:'SMA — Stone Mastic Asphalt',c:'asph',sw:'asphalt',u:'tonne',p:null,o:'quote',den:2.44,std:'OPSS SMA',sz:'Premium surface',use:['Heavy truck routes','Intersections','Long-life surface'],desc:'A premium, rut-resistant stone-on-stone surface mix for the most demanding pavements — heavy truck routes and intersections that need to last.',st:'low',fl:'spec',pop:0,src:'Plant',attrs:{'Mix type':'SMA','Structure':'Stone-on-stone skeleton','Use':'Heavy / long-life surface'}}),
+ P({n:'Cold Patch (30 kg bag)',c:'asph',sw:'asphalt',u:'bag',p:24.95,o:'cart',den:0,std:'All-weather',sz:'Bagged',use:['Pothole repair','Year-round patching','Utility cuts'],desc:'Ready-to-use, all-weather cold patch that compacts with a tamper and takes traffic immediately — keep skids on the truck for pothole season.',st:'in',fl:'',pop:0,tr:[[1,24.95],[40,21.95],[100,19.95]],src:'Bagged'}),
+ // CONCRETE (quote)
+ P({n:'Ready-Mix 25 MPa (R-2)',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA A23.1 · R-2',sz:'25 MPa @ 28 days',use:['Footings','Flatwork','Sidewalks'],desc:'A general-purpose residential mix for footings, flatwork and sidewalks. Scheduled and dispatched from our plants with Tomlinson Live GPS so you know exactly when the truck arrives.',st:'in',fl:'',pop:1,src:'Plant',attrs:{'Class':'R-2 residential','Strength':'25 MPa @ 28 d','Max w/c':'0.55','Air':'5–8%','Slump':'80 ± 30 mm'}}),
+ P({n:'Ready-Mix 32 MPa (R-4)',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA A23.1 · R-4',sz:'32 MPa @ 28 days',use:['Garage floors','Exterior steps','Curbs & porches'],desc:'A high-strength, freeze-thaw-durable exterior mix for garage floors, steps and curbs exposed to de-icing salts. Air-entrained and low w/c for the long haul.',st:'in',fl:'',pop:1,src:'Plant',attrs:{'Class':'R-4 residential','Strength':'32 MPa @ 28 d','Max w/c':'0.45','Air':'5–8%','Exposure':'C-2 / de-icing salts'}}),
+ P({n:'Commercial 32 MPa (C-2)',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA A23.1 · C-2',sz:'32 MPa @ 28 days',use:['Structural slabs','Commercial flatwork','Loading areas'],desc:'A C-2 exposure-class structural mix for commercial slabs and flatwork. Mix designs tailored to your spec; QC backed by CCIL-certified labs and optional Smart Rock in-pour sensors.',st:'in',fl:'',pop:0,src:'Plant',attrs:{'Class':'C-2 commercial','Strength':'32 MPa @ 28 d','Max w/c':'0.45','Air':'5–8%'}}),
+ P({n:'E-Line Enviro Low-Carbon 32 MPa',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA A23.1 · low-carbon',sz:'32 MPa @ 28 days',use:['Buy-Clean projects','LEED / green builds','Civil & commercial'],desc:'Same strength and durability, materially lower embodied carbon. E-Line Enviro uses supplementary cementing materials to cut CO₂ — built for Buy-Clean procurement and green specs, with an EPD on request.',st:'in',fl:'eco',pop:1,src:'Plant',attrs:{'Class':'Low-carbon 32 MPa','Strength':'32 MPa @ 28 d','Embodied carbon':'Reduced vs. reference','Docs':'EPD on request'}}),
+ P({n:'Self-Consolidating (SCC)',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA A23.1 specialty',sz:'High flow',use:['Congested rebar','ICF walls','Architectural'],desc:'A high-flow mix that fills congested forms and ICF walls and self-levels without vibration — a clean, dense finish in tight, heavily reinforced pours.',st:'spec',fl:'spec',pop:0,src:'Plant',attrs:{'Type':'Self-consolidating','Flow':'Self-levelling','Use':'Congested / architectural'}}),
+ P({n:'Sulphate-Resistant 32 MPa',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA · HS cement',sz:'32 MPa @ 28 days',use:['Below-grade','Agricultural','Aggressive soils'],desc:'A high-sulphate-resistant mix for below-grade and agricultural structures exposed to aggressive soils and groundwater.',st:'spec',fl:'spec',pop:0,src:'Plant',attrs:{'Class':'Sulphate-resistant','Cement':'Type HS','Use':'Below-grade / aggressive soils'}}),
+ // TRAP ROCK (quote)
+ P({n:'Ontario Trap Rock 16 mm',c:'trap',sw:'trap',u:'tonne',p:null,o:'quote',den:1.70,std:'High-PSV igneous',sz:'16 mm',use:['Surface-course asphalt','High-friction overlays','Skid resistance'],desc:'Premium high-PSV igneous aggregate from our Bruce Mines quarry — exceptional polish and skid resistance for surface-course asphalt where grip matters. Shipped across the Great Lakes.',st:'in',fl:'',pop:0,src:'Bruce Mines',attrs:{'Rock type':'Trap rock (igneous)','Property':'High polished-stone value','Use':'Surface-course / friction'}}),
+ P({n:'Trap Rock FC2 Chip',c:'trap',sw:'trap',u:'tonne',p:null,o:'quote',den:1.70,std:'High-PSV chip',sz:'Chip',use:['FC2 friction course','Chip seal','High-skid surfaces'],desc:'High-friction trap rock chip for FC2 friction-course asphalt and chip-seal surfaces on high-speed roads.',st:'in',fl:'',pop:0,src:'Bruce Mines',attrs:{'Rock type':'Trap rock (igneous)','Property':'High PSV','Use':'FC2 / chip seal'}}),
+ // WINTER (cart)
+ P({n:'Bulk Road Salt (NaCl)',c:'winter',sw:'salt',u:'tonne',p:128.00,o:'cart',den:1.30,std:'Highway-grade NaCl',sz:'Bulk',use:['Road & lot de-icing','Municipal routes','Bulk storage'],desc:'Highway-grade sodium chloride for road and lot de-icing. Reserve your season’s tonnage early — pickup at the yard or scheduled delivery to your bunker.',st:'in',fl:'',pop:1,tr:[[1,128.00],[40,118.00],[100,108.00]],src:'Yard'}),
+ P({n:'Thawrox Treated Salt',c:'winter',sw:'saltm',u:'tonne',p:172.00,o:'cart',den:1.30,std:'Treated NaCl',sz:'Bulk',use:['Colder temps','Faster activation','Less bounce'],desc:'Calcium-chloride-treated salt that activates faster and works at colder temperatures than plain rock salt, with less scatter and bounce.',st:'in',fl:'',pop:0,tr:[[1,172.00],[40,162.00]],src:'Yard'}),
+ P({n:'Winter Sand / Salt Blend',c:'winter',sw:'saltm',u:'tonne',p:96.00,o:'cart',den:1.50,std:'Sand + salt',sz:'Bulk',use:['Traction','Walkways & lots','Cold-temp grip'],desc:'A sand-and-salt traction blend for grip on walkways and lots when it’s too cold for salt alone to melt.',st:'in',fl:'',pop:0,tr:[[1,96.00],[40,88.00]],src:'Yard'}),
+ P({n:'Bagged Ice Melt (20 kg)',c:'winter',sw:'salt',u:'bag',p:18.95,o:'cart',den:0,std:'Blended pellet',sz:'20 kg bag',use:['Entrances & steps','Spot treatment','Pallet stock'],desc:'A fast-acting blended pellet ice melt for entrances and steps. Order by the bag or the pallet.',st:'in',fl:'',pop:0,tr:[[1,18.95],[50,16.50],[100,14.95]],src:'Bagged'}),
+ // LANDSCAPE (cart)
+ P({n:'Screened Topsoil',c:'land',sw:'topsoil',u:'yd³',p:34.00,o:'cart',den:1.30,std:'Screened, blended',sz:'Screened',use:['Lawns & gardens','Grading & fill','Top dressing'],desc:'Clean, screened topsoil for new lawns, gardens and grading. Delivered by the yard, blown or placed.',st:'in',fl:'',pop:1,tr:[[1,34.00],[10,31.00],[30,28.00]],src:'Yard'}),
+ P({n:'Garden Mulch — Natural',c:'land',sw:'mulch',u:'yd³',p:42.00,o:'cart',den:0.40,std:'Shredded bark',sz:'Natural',use:['Garden beds','Moisture retention','Weed suppression'],desc:'Natural shredded bark mulch that holds moisture, suppresses weeds and finishes a bed clean. By the yard, delivered.',st:'in',fl:'',pop:0,tr:[[1,42.00],[10,38.00]],src:'Yard'}),
+ P({n:'Decorative River Rock',c:'land',sw:'river',u:'tonne',p:96.00,o:'cart',den:1.60,std:'Natural, washed',sz:'40–80 mm',use:['Feature beds','Borders','Low-maintenance ground'],desc:'Larger washed river rock in mixed natural tones for feature beds, borders and clean, low-maintenance ground cover.',st:'in',fl:'',pop:0,tr:[[1,96.00],[10,89.00]],src:'Yard'}),
+ // LIME (quote)
+ P({n:'Agricultural Lime (Aglime)',c:'lime',sw:'lime',u:'tonne',p:null,o:'quote',den:1.40,std:'Calcitic aglime',sz:'Fine ground',use:['Soil pH correction','Field conditioning','Spread service'],desc:'Finely ground calcitic limestone to raise soil pH and condition fields. Bulk supply with optional spreading service across the region.',st:'in',fl:'',pop:0,src:'Quarry',attrs:{'Type':'Calcitic aglime','Use':'Soil pH / conditioning','Service':'Bulk + spreading'}}),
+ P({n:'Pelletized Lime',c:'lime',sw:'lime',u:'tonne',p:null,o:'quote',den:1.40,std:'Pelletized',sz:'Pellet',use:['Precise spreading','Lawns & turf','Low dust'],desc:'Pelletized lime for precise, low-dust spreading on turf and smaller fields.',st:'in',fl:'',pop:0,src:'Yard',attrs:{'Type':'Pelletized lime','Use':'Turf / precise spread'}}),
+];
+const BYID=Object.fromEntries(PRODUCTS.map(p=>[p.id,p]));
+const money=n=>'$'+n.toLocaleString('en-CA',{minimumFractionDigits:2,maximumFractionDigits:2});
+const unitLabel=u=>u==='m³'?'m³':u;
+
+/* ---------- state ---------- */
+let CART=[],PLP={cat:null,list:null,query:'',title:'All materials'},F={cat:[],use:[],avail:[],src:[]};
+
+/* ---------- shared bits ---------- */
+function stockHtml(s){const m={in:['in','In stock'],low:['low','Low stock'],spec:['spec','Made to order']};const[c,t]=m[s];return `<span class="stk ${c}"><span class="d"></span>${t}</span>`;}
+function priceHtml(p,big){if(p.o==='quote')return `<div class="price"><span class="q">Request pricing</span></div>`;const from=p.tr&&p.tr.length>1?'<span class="from">from</span>':'';return `<div class="price">${from}<span class="p num">${money(p.p)}</span> <span class="u">/ ${unitLabel(p.u)}</span></div>`;}
+function flagHtml(p){if(!p.fl)return '';const m={sale:'Sale',eco:'Low-carbon',rec:'Recycled',spec:'Specialty'};return `<span class="flag ${p.fl}">${m[p.fl]}</span>`;}
+function card(p){
+ const cta=p.o==='quote'
+   ?`<button class="addbtn q" onclick="event.stopPropagation();openQuote(${p.id})"><svg viewBox="0 0 24 24"><path d="M8 10h8M8 14h5M5 4h14v16l-3-2-3 2-3-2-2 2z"/></svg>Quote</button>`
+   :`<button class="addbtn" onclick="event.stopPropagation();add(${p.id},this)"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add</button>`;
+ return `<article class="card reveal">
+   <div class="imgw" onclick="openPDP(${p.id})">${flagHtml(p)}${swatch(p.sw,p.id)}</div>
+   <div class="b"><div class="cat">${CN[p.c]}</div>
+     <div class="nm" onclick="openPDP(${p.id})">${p.n}</div>
+     <div class="meta"><b>${p.sz}</b> · ${p.std}</div>
+     ${stockHtml(p.st)}
+     <div class="foot">${priceHtml(p)}${cta}</div>
+   </div></article>`;
+}
+
+/* ---------- home ---------- */
+const PROMOS=[
+ {cls:'red',k:'Winter is coming',h:'Lock in your salt tonnage.',p:'Reserve bulk road salt and Thawrox now — beat the season rush and the spot price.',cta:'Reserve salt',sw:'salt'},
+ {cls:'dark',k:'Lower carbon, same strength',h:'E-Line Enviro.',p:'Buy-Clean-ready low-carbon concrete. EPD on request.',cta:'Explore E-Line',sw:'concrete'},
+ {cls:'lite',k:'OPSS-approved · diverts 100k t/yr',h:'Recycled aggregate.',p:'Spec performance, lower price and footprint.',cta:'Shop recycled',sw:'rca'},
+];
+const TRUST=[
+ ['truck','On time, on site','GPS-tracked delivery and same-day will-call from the yard closest to your job.'],
+ ['lab','Tested every day','CCIL-certified labs. Every pit and plant tested daily to OPSS and CSA spec.'],
+ ['calc','Order by the number','Built-in tonnage and coverage calculators — order the right amount, the first time.'],
+ ['leaf','Lower-carbon options','E-Line Enviro concrete and recycled aggregate, ready for Buy-Clean specs.'],
+];
+const TIC={
+ truck:`<svg viewBox="0 0 24 24" fill="none"><path d="M3 14V6h11v8M14 9h4l3 3v2h-7"/><circle cx="7.5" cy="17" r="1.6"/><circle cx="17.5" cy="17" r="1.6"/></svg>`,
+ lab:`<svg viewBox="0 0 24 24" fill="none"><path d="M9 3v7l-5 8a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-5-8V3"/><path d="M8 3h8M7.5 15h9"/></svg>`,
+ calc:`<svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 11h2M12 11h2M16 11h0M8 15h2M12 15h2M16 15h0"/></svg>`,
+ leaf:`<svg viewBox="0 0 24 24" fill="none"><path d="M5 20c10 2 14-6 14-15-9 0-15 3-15 10a5 5 0 0 0 1 5z"/><path d="M5 20c2-6 6-9 10-10"/></svg>`,
+};
+function renderHome(){
+ const feat=BYID[2003]; // 19mm clear stone
+ document.getElementById('herofeat').innerHTML=`<div class="sw">${swatch(feat.sw,feat.id)}</div><span class="badge">Best seller</span>
+   <div class="card" onclick="openPDP(${feat.id})" style="cursor:pointer"><div class="ey2">${CN[feat.c]} · Best seller</div><div class="t">${feat.n}</div><div class="s">${feat.sz} · drainage &amp; under-slab</div><div class="prow"><b class="num">${money(feat.p)}</b><span>/ tonne</span></div></div>`;
+ document.getElementById('promos').innerHTML=PROMOS.map(p=>`<div class="pcard reveal ${p.cls}"><div><div class="k">${p.k}</div><h3>${p.h}</h3><p>${p.p}</p></div><span class="lk">${p.cta} <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><div class="sw">${swatch(p.sw,p.k.length*13)}</div></div>`).join('');
+ document.getElementById('trust').innerHTML=TRUST.map(t=>`<div class="ti reveal"><div class="ic">${TIC[t[0]]}</div><div><h4>${t[1]}</h4><p>${t[2]}</p></div></div>`).join('');
+ document.getElementById('cattiles').innerHTML=CATS.map(c=>{const cnt=PRODUCTS.filter(p=>p.c===c.id).length;return `<div class="ctile reveal" onclick="go('plp',{cat:'${c.id}',title:'${c.name}'})"><div class="sw">${swatch(c.sw,c.id.length*29+7)}</div><div class="lb"><div class="nm">${c.name}</div><div class="ct">${cnt} product${cnt>1?'s':''}</div></div></div>`;}).join('');
+ document.getElementById('reorder').innerHTML=[2001,2003,2027,2019,2031].map(id=>card(BYID[id])).join('');
+ document.getElementById('popular').innerHTML=PRODUCTS.filter(p=>p.pop).slice(0,8).map(card).join('');
+ observeReveals();
+}
+
+/* ---------- PLP ---------- */
+function go(view,opts={}){
+ window.scrollTo(0,0);
+ if(view==='plp'){F={cat:[],use:[],avail:[],src:[]};PLP.cat=opts.cat||null;PLP.list=opts.list||null;PLP.query=opts.query||'';PLP.title=opts.title||(PLP.cat?CN[PLP.cat]:'All materials');
+   document.getElementById('plptitle').textContent=PLP.title;document.getElementById('plpcrumb').textContent=PLP.title;
+   const cobj=CATS.find(c=>c.id===PLP.cat);document.getElementById('plpsub').textContent=cobj?cobj.blurb:(PLP.list==='reorder'?'Materials you’ve ordered before — reorder in a tap.':'');
+   buildFilters();renderGrid();}
+ document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));document.getElementById('view-'+view).classList.add('on');closeSuggest();
+}
+function basePool(){let pool=PRODUCTS.slice();if(PLP.list==='reorder')pool=[2001,2003,2027,2019,2031,2009,2011].map(id=>BYID[id]);if(PLP.cat)pool=pool.filter(p=>p.c===PLP.cat);if(PLP.query){const q=PLP.query.toLowerCase();pool=pool.filter(p=>(p.n+p.std+p.sz+CN[p.c]+(p.use||[]).join(' ')).toLowerCase().includes(q));}return pool;}
+function buildFilters(){
+ const pool=basePool();let h='';
+ const cats=[...new Set(pool.map(p=>p.c))];
+ if(!PLP.cat&&cats.length>1)h+=`<div class="fg"><h5>Material</h5>`+cats.map(c=>`<label class="fo"><input type="checkbox" data-f="cat" value="${c}" onchange="tg('cat',this)"> ${CN[c]} <span class="ct">${pool.filter(p=>p.c===c).length}</span></label>`).join('')+`</div>`;
+ const uses=[...new Set(pool.flatMap(p=>p.use||[]))].sort().slice(0,8);
+ h+=`<div class="fg"><h5>Application</h5>`+uses.map(u=>`<label class="fo"><input type="checkbox" data-f="use" value="${u}" onchange="tg('use',this)"> ${u} <span class="ct">${pool.filter(p=>(p.use||[]).includes(u)).length}</span></label>`).join('')+`</div>`;
+ const srcs=[...new Set(pool.map(p=>p.src))];
+ h+=`<div class="fg"><h5>Source</h5>`+srcs.map(s=>`<label class="fo"><input type="checkbox" data-f="src" value="${s}" onchange="tg('src',this)"> ${s} <span class="ct">${pool.filter(p=>p.src===s).length}</span></label>`).join('')+`</div>`;
+ h+=`<div class="fg"><h5>Availability</h5><label class="fo"><input type="checkbox" data-f="avail" value="in" onchange="tg('avail',this)"> In stock now <span class="ct">${pool.filter(p=>p.st==='in').length}</span></label><label class="fo"><input type="checkbox" data-f="avail" value="cart" onchange="tg('avail',this)"> Order online <span class="ct">${pool.filter(p=>p.o==='cart').length}</span></label></div>`;
+ h+=`<div class="clearf" onclick="clearF()">Clear all filters</div>`;
+ document.getElementById('filters').innerHTML=h;
+}
+function tg(k,el){if(el.checked)F[k].push(el.value);else F[k]=F[k].filter(v=>v!==el.value);renderGrid();}
+function clearF(){F={cat:[],use:[],avail:[],src:[]};buildFilters();renderGrid();}
+function renderGrid(){
+ let pool=basePool();
+ if(F.cat.length)pool=pool.filter(p=>F.cat.includes(p.c));
+ if(F.use.length)pool=pool.filter(p=>(p.use||[]).some(u=>F.use.includes(u)));
+ if(F.src.length)pool=pool.filter(p=>F.src.includes(p.src));
+ if(F.avail.includes('in'))pool=pool.filter(p=>p.st==='in');
+ if(F.avail.includes('cart'))pool=pool.filter(p=>p.o==='cart');
+ const s=document.getElementById('sort').value;const pv=p=>p.p==null?1e9:p.p;
+ if(s==='plo')pool.sort((a,b)=>pv(a)-pv(b));if(s==='phi')pool.sort((a,b)=>pv(b)-pv(a));if(s==='az')pool.sort((a,b)=>a.n.localeCompare(b.n));
+ document.getElementById('plpcount').textContent=pool.length;
+ document.getElementById('plpgrid').innerHTML=pool.length?pool.map(card).join(''):`<div class="empty">No materials match those filters. <a style="color:var(--red);font-weight:600;cursor:pointer" onclick="clearF()">Clear filters</a></div>`;
+ const chips=[...F.cat.map(v=>['cat',v,CN[v]]),...F.use.map(v=>['use',v,v]),...F.src.map(v=>['src',v,v]),...F.avail.map(v=>['avail',v,v==='in'?'In stock':'Order online'])];
+ document.getElementById('chips').innerHTML=chips.map(c=>`<span class="chip" onclick="rmChip('${c[0]}',this.dataset.v)" data-v="${c[1]}">${c[2]} <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></span>`).join('');
+ observeReveals();
+}
+function rmChip(k,v){F[k]=F[k].filter(x=>x!==v);buildFilters();Object.keys(F).forEach(kk=>F[kk].forEach(val=>{const el=document.querySelector(`[data-f="${kk}"][value="${CSS.escape(val)}"]`);if(el)el.checked=true;}));renderGrid();}
+
+/* ---------- PDP ---------- */
+let CALC={shape:'rect'};
+function openPDP(id){
+ const p=BYID[id];window.scrollTo(0,0);
+ const isCart=p.o==='cart';
+ const tiers=p.tr&&p.tr.length>1?`<div class="tiers"><div class="th"><span>Quantity (${unitLabel(p.u)})</span><span>Price / ${unitLabel(p.u)}</span></div>`+p.tr.map((t,i)=>{const sv=i>0?Math.round((1-t[1]/p.tr[0][1])*100):0;const hi=p.tr[i+1]?(p.tr[i+1][0]-1):null;return `<div class="tr"><b>${t[0]}${hi?'–'+hi:'+'}</b><span class="num">${money(t[1])} ${sv?`<span class="save">−${sv}%</span>`:''}</span></div>`;}).join('')+`</div>`:'';
+ const attrs=p.attrs||{Material:p.std,'Size / gradation':p.sz,'Bulk density':(p.den?`${p.den} t/m³`:'—'),Source:p.src,Unit:unitLabel(p.u)};
+ const specRows=Object.entries(attrs).map(([k,v])=>`<div class="r"><div class="k">${k}</div><div class="v">${v}</div></div>`).join('');
+ const calc=(isCart&&p.den)?`<div class="calc"><h4>How much do I need?</h4>
+   <div class="seg"><button id="csr" class="on" onclick="setShape('rect')">Rectangle</button><button id="csc" onclick="setShape('circle')">Circle</button></div>
+   <div class="row"><div class="fieldlet"><label id="cl1">Length (ft)</label><input id="cL" type="number" min="0" value="20" oninput="calcRun(${p.id})"></div><div class="fieldlet" id="cw"><label>Width (ft)</label><input id="cW" type="number" min="0" value="10" oninput="calcRun(${p.id})"></div><div class="fieldlet"><label>Depth (in)</label><input id="cD" type="number" min="0" value="4" oninput="calcRun(${p.id})"></div></div>
+   <div class="res"><div><div class="big" id="cRes">—</div><div class="sm" id="cRes2">enter your area</div></div><button onclick="calcAdd(${p.id})">Add to order</button></div></div>`:'';
+ const orderBlock=isCart
+  ?`<div class="bb"><div class="pl">${p.tr&&p.tr.length>1?'<span class="from">from</span>':''}<span class="p num">${money(p.p)}</span><span class="u">/ ${unitLabel(p.u)}</span></div>
+     <div class="zone">Yard pickup price · delivery quoted by postal code</div>${stockHtml(p.st)}${tiers}${calc}
+     <div class="qtyrow"><div class="qty"><button onclick="stepQ(-1)" aria-label="less">−</button><input id="pq" value="1" onchange="this.value=Math.max(1,parseFloat(this.value)||1)"></div><span class="uom">${unitLabel(p.u)}${p.u==='bag'?'s':''}</span></div>
+     <button class="bigadd" onclick="addQ(${p.id})"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add to order</button>
+     <button class="subadd" onclick="openQuote(${p.id})">Need a delivered price? Request a quote</button>`
+  :`<div class="bb"><div class="pl"><span class="pq">Priced & scheduled to spec</span></div>
+     <div class="zone">${p.u==='m³'?'Ready-mix is dispatched to your pour window':'Plant pickup or delivery, by the tonne'}</div>${stockHtml(p.st)}
+     <button class="bigadd" style="margin-top:16px" onclick="openQuote(${p.id})"><svg viewBox="0 0 24 24"><path d="M8 10h8M8 14h5M5 4h14v16l-3-2-3 2-3-2-2 2z"/></svg>Request a quote</button>
+     <button class="subadd" onclick="toast('A rep will call — prototype')">Talk to a materials rep</button>`;
+ const feats=isCart?[['truck','Delivery or same-day will-call'],['calc','Order by tonne, yard or bag'],['leaf','Recycled & low-carbon options']]:[['truck','GPS-tracked delivery & live ETA'],['lab','CCIL-certified quality, spec’d to your job'],['calc','Quote in minutes — qty, date, site']];
+ document.getElementById('pdpwrap').innerHTML=`
+  <div class="crumb"><a href="#" onclick="go('home');return false">Home</a><span class="sep">/</span><a href="#" onclick="go('plp',{cat:'${p.c}',title:'${CN[p.c]}'});return false">${CN[p.c]}</a><span class="sep">/</span><span>${p.n}</span></div>
+  <div class="pdpgrid">
+   <div class="pdpmedia"><div class="pdpimg">${swatch(p.sw,p.id)}</div>
+     <div class="pdpthumbs"><div class="pth on">${swatch(p.sw,p.id)}</div><div class="pth">${swatch(p.sw,p.id+50)}</div><div class="pth">${swatch(p.sw,p.id+90)}</div></div></div>
+   <div class="pdpinfo"><div class="cat">${CN[p.c]}</div><h1>${p.n}</h1>
+     <p class="lead">${p.desc}</p>
+     <div class="usefor"><h4>Use it for</h4><ul>${p.use.map(u=>`<li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>${u}</li>`).join('')}</ul></div>
+     ${orderBlock}
+     <div class="bbfeat">${feats.map(f=>`<div class="f">${TIC[f[0]]}${f[1]}</div>`).join('')}</div>
+     </div>
+   </div></div>
+  <div class="block specwrap"><h2 class="disp tick" style="font-size:22px;margin-bottom:16px">Specifications</h2><div class="specrows" style="max-width:680px">${specRows}</div>
+    <button class="datasheet"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 16h6"/></svg>Download product spec sheet (PDF)</button></div>
+  <div class="block"><div class="shead"><h2 class="tick">Often ordered with</h2></div><div class="grid">${PRODUCTS.filter(x=>x.c===p.c&&x.id!==p.id).slice(0,4).map(card).join('')||PRODUCTS.filter(x=>x.id!==p.id).slice(0,4).map(card).join('')}</div></div>`;
+ document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));document.getElementById('view-pdp').classList.add('on');
+ document.querySelectorAll('#view-pdp .pth').forEach(t=>t.onclick=()=>{document.querySelectorAll('#view-pdp .pth').forEach(x=>x.classList.remove('on'));t.classList.add('on');});
+ CALC={shape:'rect'};if(isCart&&p.den)calcRun(p.id);observeReveals();closeSuggest();
+}
+function setShape(s){CALC.shape=s;document.getElementById('csr').classList.toggle('on',s==='rect');document.getElementById('csc').classList.toggle('on',s==='circle');document.getElementById('cw').style.display=s==='circle'?'none':'';document.getElementById('cl1').textContent=s==='circle'?'Diameter (ft)':'Length (ft)';calcRun(window._pid);}
+let _calcT=0;
+function calcRun(id){window._pid=id;const p=BYID[id];const L=parseFloat(document.getElementById('cL').value)||0,W=CALC.shape==='circle'?L:(parseFloat(document.getElementById('cW').value)||0),D=parseFloat(document.getElementById('cD').value)||0;
+ let areaFt=CALC.shape==='circle'?Math.PI*Math.pow(L/2,2):L*W;const volFt3=areaFt*(D/12);const volM3=volFt3*0.0283168;const volYd3=volFt3/27;
+ let out,sub;
+ if(p.u==='yd³'){out=`${volYd3.toFixed(1)} yd³`;sub=`≈ ${(volYd3*1.0).toFixed(1)} cubic yards needed`;window._calcQty=Math.max(0.5,+volYd3.toFixed(1));}
+ else{const t=volM3*p.den;out=`${t.toFixed(1)} tonnes`;sub=`≈ ${volYd3.toFixed(1)} yd³ · ${volM3.toFixed(1)} m³`;window._calcQty=Math.max(0.5,+t.toFixed(1));}
+ if(!areaFt||!D){out='—';sub='enter your area';window._calcQty=0;}
+ document.getElementById('cRes').textContent=out;document.getElementById('cRes2').textContent=sub;const _r=document.querySelector('.calc .res');if(_r){_r.classList.remove('flash');void _r.offsetWidth;_r.classList.add('flash');}}
+function calcAdd(id){if(!window._calcQty){toast('Enter your area first');return;}document.getElementById('pq').value=window._calcQty;add(id,null,window._calcQty);}
+function stepQ(d){const el=document.getElementById('pq');el.value=Math.max(1,(parseFloat(el.value)||1)+d);}
+function addQ(id){add(id,null,parseFloat(document.getElementById('pq').value)||1);}
+
+/* ---------- cart ---------- */
+function add(id,btn,q=1){const ex=CART.find(c=>c.id===id);if(ex)ex.q+=q;else CART.push({id,q});updateCart();const _b=document.getElementById('cbadge');_b.classList.remove('bump');void _b.offsetWidth;_b.classList.add('bump');
+ if(btn){btn.classList.add('added');btn.innerHTML='✓';setTimeout(()=>{btn.classList.remove('added');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14"/></svg>Add';},1000);}
+ toast(`${q% 1?q.toFixed(1):q} ${unitLabel(BYID[id].u)}${q>1?'s':''} added`);}
+function updateCart(){const n=CART.reduce((s,c)=>s+c.q,0);const b=document.getElementById('cbadge');b.textContent=CART.length;b.style.display=CART.length?'flex':'none';
+ const items=document.getElementById('ditems');
+ if(!CART.length){items.innerHTML=`<div class="dempty"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6h15l-1.6 9h-12z"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg><div>Your order is empty.</div></div>`;document.getElementById('dfoot').innerHTML='';return;}
+ items.innerHTML=CART.map(c=>{const p=BYID[c.id];return `<div class="di"><div class="ti">${swatch(p.sw,p.id)}</div><div style="flex:1"><div class="nm">${p.n}</div><div class="sk">${p.sz} · ${unitLabel(p.u)}</div><div class="row"><div class="miniq"><button onclick="chq(${c.id},-1)">−</button><span class="num">${c.q%1?c.q.toFixed(1):c.q}</span><button onclick="chq(${c.id},1)">+</button></div><div class="pp num">${money(p.p*c.q)}</div></div></div></div>`;}).join('');
+ const sub=CART.reduce((s,c)=>s+BYID[c.id].p*c.q,0);
+ document.getElementById('dfoot').innerHTML=`<div class="ln"><span>Materials subtotal</span><span class="num">${money(sub)}</span></div><div class="ln"><span>Delivery</span><span>Quoted by postal code</span></div><div class="tot"><span>Estimated subtotal</span><span class="num">${money(sub)}</span></div><button class="co" onclick="toast('Checkout — prototype')">Checkout &amp; schedule delivery</button><button class="rq" onclick="closeCart();openQuote(CART[0].id)">Request a full quote instead</button><div class="note">Contract pricing &amp; aggregate levy applied at checkout when signed in.</div>`;}
+function chq(id,d){const c=CART.find(x=>x.id===id);if(!c)return;c.q=Math.max(0,c.q+d);if(c.q<=0)CART=CART.filter(x=>x.id!==id);updateCart();}
+function openCart(){document.getElementById('drawer').classList.add('on');document.getElementById('scrim').classList.add('on');}
+function closeCart(){document.getElementById('drawer').classList.remove('on');document.getElementById('scrim').classList.remove('on');}
+
+/* ---------- quote modal ---------- */
+let QDEL='delivery';
+function openQuote(id){const p=BYID[id];QDEL='delivery';
+ document.getElementById('qbox').innerHTML=`
+  <div class="qhead"><button class="qx" onclick="closeQuote()" aria-label="Close"><svg viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+   <div class="k">Request a quote</div><h2>Materials quote</h2><p>Tell us the job — we’ll come back with a delivered price, lead time and spec confirmation.</p></div>
+  <div class="qbody">
+   <div class="qprod"><div class="ti">${swatch(p.sw,p.id)}</div><div><div class="nm">${p.n}</div><div class="sk">${p.sz} · ${p.std}</div></div></div>
+   <div class="qgrid">
+    <div class="field"><label>Quantity <span class="req">*</span></label><input type="number" min="0" placeholder="e.g. 40" value=""></div>
+    <div class="field"><label>Unit</label><select><option ${p.u==='tonne'?'selected':''}>tonne</option><option ${p.u==='m³'?'selected':''}>m³</option><option ${p.u==='yd³'?'selected':''}>cubic yard</option><option ${p.u==='bag'?'selected':''}>bag / pallet</option></select></div>
+    <div class="field full"><label>Pickup or delivery <span class="req">*</span></label><div class="qseg"><button class="on" id="qdel" onclick="qd('delivery')">Delivery to site</button><button id="qpick" onclick="qd('pickup')">Pickup at yard</button></div></div>
+    <div class="field" id="qaddrf"><label>Delivery postal code <span class="req">*</span></label><input placeholder="K2J 6K7"></div>
+    <div class="field"><label>Needed by <span class="req">*</span></label><input type="date"></div>
+    <div class="field"><label>Sector</label><select><option>Residential</option><option selected>Commercial / ICI</option><option>Civil / road</option><option>Municipal</option><option>Agricultural</option><option>Landscaper</option></select></div>
+    <div class="field"><label>Spec / mix (optional)</label><input placeholder="e.g. OPSS 1010, 32 MPa, PG58-34"></div>
+    <div class="field"><label>Company</label><input placeholder="Company name"></div>
+    <div class="field"><label>PO / project #</label><input placeholder="Optional"></div>
+    <div class="field"><label>Name <span class="req">*</span></label><input placeholder="Your name"></div>
+    <div class="field"><label>Phone <span class="req">*</span></label><input placeholder="(613) 000-0000"></div>
+    <div class="field full"><label>Notes</label><textarea placeholder="Access, on-site contact, staging, time window…"></textarea></div>
+   </div>
+   <button class="qsubmit" onclick="submitQuote()">Send quote request</button>
+   <div class="qnote">Typical response within 1 business hour during yard hours · or call 1-613-690-3311</div>
+  </div>`;
+ document.getElementById('modal').classList.add('on');
+}
+function qd(m){QDEL=m;document.getElementById('qdel').classList.toggle('on',m==='delivery');document.getElementById('qpick').classList.toggle('on',m==='pickup');
+ document.getElementById('qaddrf').innerHTML=m==='delivery'?`<label>Delivery postal code <span class="req">*</span></label><input placeholder="K2J 6K7">`:`<label>Pickup yard</label><select><option>Ottawa (Carlsbad)</option><option>Kemptville</option><option>Brechin</option><option>Napanee</option></select>`;}
+function submitQuote(){document.getElementById('qbox').innerHTML=`<div class="qsuccess"><div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7"/></svg></div><h2>Quote request sent.</h2><p>A Tomlinson materials rep will confirm price, spec and lead time — typically within the hour during yard hours.</p><button onclick="closeQuote()">Done</button></div>`;}
+function closeQuote(){document.getElementById('modal').classList.remove('on');}
+document.getElementById('modal').addEventListener('click',e=>{if(e.target.id==='modal')closeQuote();});
+
+/* ---------- search ---------- */
+const qel=document.getElementById('q');
+qel.addEventListener('input',()=>{const v=qel.value.trim().toLowerCase();const sg=document.getElementById('suggest');if(v.length<2){sg.classList.remove('on');return;}
+ const m=PRODUCTS.filter(p=>(p.n+p.std+p.sz+CN[p.c]+(p.use||[]).join(' ')).toLowerCase().includes(v)).slice(0,6);
+ if(!m.length){sg.classList.remove('on');return;}
+ sg.innerHTML=m.map(p=>`<div class="sug" onclick="openPDP(${p.id});qel.value='';closeSuggest()"><div class="ti">${swatch(p.sw,p.id)}</div><div><div class="nm">${p.n}</div><div class="sk">${CN[p.c]} · ${p.sz}</div></div><div class="pr num">${p.o==='quote'?'Quote':money(p.p)}</div></div>`).join('');
+ sg.classList.add('on');});
+qel.addEventListener('keydown',e=>{if(e.key==='Enter')runSearch();});
+function runSearch(){const v=qel.value.trim();if(!v)return;go('plp',{query:v,title:`Results for “${v}”`});closeSuggest();}
+function closeSuggest(){document.getElementById('suggest').classList.remove('on');}
+document.addEventListener('click',e=>{if(!e.target.closest('.search'))closeSuggest();});
+
+/* ---------- misc ---------- */
+let tt;function toast(t){const el=document.getElementById('toast');document.getElementById('toasttext').textContent=t;el.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>el.classList.remove('on'),1900);}
+document.getElementById('catnav').innerHTML=CATS.slice(0,5).map(c=>`<button class="navi" onclick="go('plp',{cat:'${c.id}',title:'${c.name}'})">${c.name}</button>`).join('');
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closeQuote();}});
+const _hdr=document.querySelector('header.main');addEventListener('scroll',()=>{_hdr.classList.toggle('scrolled',scrollY>8);},{passive:true});
+let _io;
+function observeReveals(){
+ const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+ const els=document.querySelectorAll('.reveal:not(.in)');
+ if(reduce||!('IntersectionObserver'in window)){els.forEach(e=>e.classList.add('in'));return;}
+ if(!_io)_io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');_io.unobserve(en.target);}}),{threshold:0.06,rootMargin:'0px 0px -36px 0px'});
+ els.forEach((e,i)=>{e.style.transitionDelay=((i%6)*55)+'ms';_io.observe(e);});
+}
+renderHome();updateCart();
+</script>
+</body>
+</html>
