@@ -49,7 +49,8 @@ header.main{background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur
 .logo .mark{font-family:var(--brand);font-size:21px;letter-spacing:.01em;color:var(--ink);line-height:1;-webkit-text-stroke:0.95px var(--ink);paint-order:stroke fill}
 .logo .mark s{color:var(--red);text-decoration:none;-webkit-text-stroke:0.95px var(--red)}
 .logo .by{font-size:9.5px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.09em;line-height:1.25;border-left:1px solid var(--line);padding-left:11px}
-.logo .by b{color:var(--red)}
+.logo .by b{color:var(--red);font-family:var(--brand);font-size:9.5px;letter-spacing:.005em;-webkit-text-stroke:.45px var(--red);paint-order:stroke fill}
+.logo .by .tlogo{height:9px;width:auto;display:inline-block;vertical-align:-0.5px;margin:0 0 1px 2px}
 .search{flex:1;position:relative}
 .search input{width:100%;height:48px;border:1px solid var(--line);background:var(--surf);border-radius:var(--r);padding:0 48px 0 44px;font-size:15px;font-family:var(--ui);color:var(--ink);outline:none;transition:.15s}
 .search input:focus{background:#fff;border-color:var(--ink);box-shadow:var(--sh)}
@@ -95,14 +96,14 @@ nav.cat .wrap{display:flex;align-items:center;gap:0;height:48px}
 .hero{padding:40px 0 8px}
 .herogrid{display:grid;grid-template-columns:1.05fr .95fr;gap:42px;align-items:center}
 .hero .ey{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:18px}
-.hero h1{font-family:var(--brand);text-transform:uppercase;font-size:46px;line-height:1.14;letter-spacing:.002em;margin-bottom:24px;-webkit-text-stroke:1.8px var(--ink);paint-order:stroke fill}
+.hero h1{font-family:var(--brand);text-transform:uppercase;font-size:46px;line-height:1.14;letter-spacing:.002em;margin-bottom:24px;-webkit-text-stroke:2.7px var(--ink);paint-order:stroke fill}
 .hero p.l{font-size:18px;color:var(--ink2);max-width:480px;line-height:1.5;margin-bottom:26px}
 .hero .seg{display:flex;gap:9px;margin-bottom:0}
 .hero .seg a{font-size:13px;font-weight:600;padding:10px 16px;border:1px solid var(--line);border-radius:30px;color:var(--ink2);transition:.12s}
 .hero .seg a:hover{border-color:var(--ink);color:var(--ink)}
 .hero .seg a.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.herofeat{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:4/3.4;box-shadow:var(--sh2);border:1px solid var(--line)}
-.herofeat .sw{position:absolute;inset:0}.herofeat .sw svg{width:100%;height:100%}
+.herofeat{position:relative;aspect-ratio:4/3.4}
+.herofeat .sw{position:absolute;inset:0;-webkit-clip-path:polygon(100.0% 50.0%,99.9% 66.9%,99.7% 73.0%,99.2% 77.4%,98.6% 81.0%,97.9% 84.1%,96.9% 86.7%,95.8% 89.1%,94.4% 91.1%,92.9% 92.9%,91.1% 94.4%,89.1% 95.8%,86.7% 96.9%,84.1% 97.9%,81.0% 98.6%,77.4% 99.2%,73.0% 99.7%,66.9% 99.9%,50.0% 100.0%,33.1% 99.9%,27.0% 99.7%,22.6% 99.2%,19.0% 98.6%,15.9% 97.9%,13.3% 96.9%,10.9% 95.8%,8.9% 94.4%,7.1% 92.9%,5.6% 91.1%,4.2% 89.1%,3.1% 86.7%,2.1% 84.1%,1.4% 81.0%,0.8% 77.4%,0.3% 73.0%,0.1% 66.9%,0.0% 50.0%,0.1% 33.1%,0.3% 27.0%,0.8% 22.6%,1.4% 19.0%,2.1% 15.9%,3.1% 13.3%,4.2% 10.9%,5.6% 8.9%,7.1% 7.1%,8.9% 5.6%,10.9% 4.2%,13.3% 3.1%,15.9% 2.1%,19.0% 1.4%,22.6% 0.8%,27.0% 0.3%,33.1% 0.1%,50.0% 0.0%,66.9% 0.1%,73.0% 0.3%,77.4% 0.8%,81.0% 1.4%,84.1% 2.1%,86.7% 3.1%,89.1% 4.2%,91.1% 5.6%,92.9% 7.1%,94.4% 8.9%,95.8% 10.9%,96.9% 13.3%,97.9% 15.9%,98.6% 19.0%,99.2% 22.6%,99.7% 27.0%,99.9% 33.1%);clip-path:polygon(100.0% 50.0%,99.9% 66.9%,99.7% 73.0%,99.2% 77.4%,98.6% 81.0%,97.9% 84.1%,96.9% 86.7%,95.8% 89.1%,94.4% 91.1%,92.9% 92.9%,91.1% 94.4%,89.1% 95.8%,86.7% 96.9%,84.1% 97.9%,81.0% 98.6%,77.4% 99.2%,73.0% 99.7%,66.9% 99.9%,50.0% 100.0%,33.1% 99.9%,27.0% 99.7%,22.6% 99.2%,19.0% 98.6%,15.9% 97.9%,13.3% 96.9%,10.9% 95.8%,8.9% 94.4%,7.1% 92.9%,5.6% 91.1%,4.2% 89.1%,3.1% 86.7%,2.1% 84.1%,1.4% 81.0%,0.8% 77.4%,0.3% 73.0%,0.1% 66.9%,0.0% 50.0%,0.1% 33.1%,0.3% 27.0%,0.8% 22.6%,1.4% 19.0%,2.1% 15.9%,3.1% 13.3%,4.2% 10.9%,5.6% 8.9%,7.1% 7.1%,8.9% 5.6%,10.9% 4.2%,13.3% 3.1%,15.9% 2.1%,19.0% 1.4%,22.6% 0.8%,27.0% 0.3%,33.1% 0.1%,50.0% 0.0%,66.9% 0.1%,73.0% 0.3%,77.4% 0.8%,81.0% 1.4%,84.1% 2.1%,86.7% 3.1%,89.1% 4.2%,91.1% 5.6%,92.9% 7.1%,94.4% 8.9%,95.8% 10.9%,96.9% 13.3%,97.9% 15.9%,98.6% 19.0%,99.2% 22.6%,99.7% 27.0%,99.9% 33.1%);filter:drop-shadow(0 12px 26px rgba(20,23,26,.15)) drop-shadow(0 2px 6px rgba(20,23,26,.09))}.herofeat .sw svg{width:100%;height:100%}
 .herofeat .card{position:absolute;left:20px;bottom:20px;right:20px;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-radius:13px;padding:15px 20px 17px;box-shadow:var(--sh2)}
 .herofeat .card .ey2{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--mut2);margin-bottom:6px}
 .herofeat .card .t{font-family:var(--disp);font-weight:700;font-size:24px;letter-spacing:-.03em;line-height:1.02;color:var(--ink)}
@@ -110,7 +111,7 @@ nav.cat .wrap{display:flex;align-items:center;gap:0;height:48px}
 .herofeat .card .prow{display:flex;align-items:baseline;gap:7px;margin-top:12px}
 .herofeat .card .prow b{font-family:var(--disp);font-weight:800;font-size:16px;letter-spacing:-.01em;color:var(--ink)}
 .herofeat .card .prow span{font-size:12px;color:var(--mut)}
-.herofeat .badge{position:absolute;top:16px;left:16px;background:var(--ink);color:#fff;font-size:11px;font-weight:600;padding:6px 11px;border-radius:6px;letter-spacing:.02em}
+.herofeat .badge{position:absolute;top:30px;left:38px;background:var(--ink);color:#fff;font-size:11px;font-weight:600;padding:6px 11px;border-radius:6px;letter-spacing:.02em}
 
 /* promo strip (email campaigns on-site) */
 .promos{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:14px;margin-top:30px}
@@ -329,8 +330,54 @@ footer.f .bot{border-top:1px solid #2A2F37;margin-top:34px;padding-top:20px;font
 
 .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(18px);background:var(--ink);color:#fff;font-size:13.5px;font-weight:600;padding:14px 22px;border-radius:11px;box-shadow:var(--shl);display:flex;align-items:center;gap:11px;opacity:0;pointer-events:none;transition:.25s;z-index:100}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}.toast svg{width:18px;height:18px;stroke:#5BE08C;stroke-width:2.6;fill:none}
+/* build your load */
+.loadcta{background:var(--ink);border-radius:16px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;color:#fff;cursor:pointer;transition:.2s}
+.loadcta:hover{box-shadow:var(--sh2)}
+.loadcta .k{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#FF6671;margin-bottom:9px}
+.loadcta h3{font-family:var(--disp);font-weight:800;font-size:25px;letter-spacing:-.02em;line-height:1.08}
+.loadcta p{font-size:14px;color:#B6BBC1;margin-top:8px;max-width:520px;line-height:1.45}
+.loadcta .go{background:var(--red);color:#fff;font-weight:700;font-size:14.5px;padding:14px 24px;border-radius:9px;display:inline-flex;align-items:center;gap:9px;white-space:nowrap;flex:0 0 auto}
+.loadcta .go:hover{background:var(--redh)}.loadcta .go svg{width:16px;height:16px;stroke:#fff;stroke-width:2.2;fill:none}
+.load{padding:24px 0 80px}
+.loadhd{max-width:640px;margin:8px 0 28px}
+.loadhd h1{font-family:var(--disp);font-weight:800;font-size:32px;letter-spacing:-.025em}
+.loadhd p{font-size:15px;color:var(--mut);margin-top:11px;line-height:1.55}
+.loadgrid{display:grid;grid-template-columns:1fr 400px;gap:36px;align-items:start}
+.step{margin-bottom:28px}
+.step .sl{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink2);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.step .sl .n{width:21px;height:21px;border-radius:50%;background:var(--ink);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:var(--disp)}
+.jobs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.job{border:1px solid var(--line);border-radius:13px;padding:16px;cursor:pointer;transition:.15s;background:#fff;display:flex;flex-direction:column;gap:11px}
+.job:hover{border-color:#C9CED4;box-shadow:var(--sh)}
+.job.on{border:2px solid var(--ink);box-shadow:var(--sh2)}
+.job .ji svg{width:30px;height:30px;stroke:var(--red);fill:none;stroke-width:1.6}
+.job .jn{font-size:14.5px;font-weight:700;letter-spacing:-.015em;line-height:1.15}
+.job .jb{font-size:11.5px;color:var(--mut);line-height:1.35;margin-top:-4px}
+.dims{display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap}
+.dims .f{flex:1;min-width:130px}.dims label{font-size:12px;color:var(--mut);font-weight:600;display:block;margin-bottom:6px}
+.dims input{width:100%;height:48px;border:1px solid var(--line);border-radius:9px;padding:0 14px;font-family:var(--ui);font-size:16px;font-weight:600;outline:none}
+.dims input:focus{border-color:var(--ink)}
+.dims .area{font-size:13px;color:var(--mut);padding-bottom:14px;white-space:nowrap}.dims .area b{color:var(--ink);font-family:var(--disp);font-weight:700}
+.loadout{border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:var(--sh);position:sticky;top:142px;overflow:hidden}
+.loadout .oh{padding:17px 20px;border-bottom:1px solid var(--line)}
+.loadout .oh h3{font-family:var(--disp);font-weight:800;font-size:17px}.loadout .oh .jt{font-size:12px;color:var(--mut);margin-top:2px}
+.loadrows{padding:4px 20px}
+.lr{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid var(--line2);align-items:center}.lr:last-child{border-bottom:none}
+.lr .ti{width:48px;height:40px;border-radius:8px;overflow:hidden;border:1px solid var(--line);flex:0 0 auto}.lr .ti .sw{width:100%;height:100%}
+.lr .nm{font-size:13.5px;font-weight:600;line-height:1.2;letter-spacing:-.01em}.lr .ly{font-size:11px;color:var(--mut2);margin-top:3px}
+.lr .qt{margin-left:auto;text-align:right;flex:0 0 auto;padding-left:10px}
+.lr .qt b{font-family:var(--disp);font-weight:700;font-size:15px;display:block}.lr .qt span{font-size:11px;color:var(--mut)}.lr .qt .q{color:var(--amber);font-weight:600}
+.loadempty{padding:60px 24px;text-align:center;color:var(--mut2);font-size:13.5px;line-height:1.5}
+.loadfoot{padding:18px 20px;border-top:1px solid var(--line);background:var(--paper)}
+.loadfoot .tot{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:3px}
+.loadfoot .tot .l{font-size:13px;color:var(--mut)}.loadfoot .tot .v{font-family:var(--disp);font-weight:800;font-size:23px}
+.loadfoot .sub{font-size:11.5px;color:var(--mut2);margin-bottom:15px}
+.loadfoot .ba{width:100%;background:var(--red);color:#fff;font-weight:700;font-size:15px;padding:15px;border-radius:10px}.loadfoot .ba:hover{background:var(--redh)}
+.loadfoot .bq{width:100%;background:#fff;border:1px solid var(--line);font-weight:600;font-size:13.5px;padding:12px;border-radius:10px;margin-top:9px}
+.loadnote{font-size:11px;color:var(--mut2);text-align:center;margin-top:12px;line-height:1.45}
+@media(max-width:1100px){.loadgrid{grid-template-columns:1fr}.loadout{position:static}.jobs{grid-template-columns:repeat(2,1fr)}.loadcta{flex-direction:column;align-items:flex-start}}
 
-@media(max-width:1100px){.herogrid{grid-template-columns:1fr}.hero h1{font-size:34px;-webkit-text-stroke:0.7px var(--ink)}.promos{grid-template-columns:1fr}.cattiles{grid-template-columns:repeat(3,1fr)}.rail{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:repeat(3,1fr)}.trust{grid-template-columns:repeat(2,1fr)}.pdpgrid{grid-template-columns:1fr}.pdpmedia{position:static}.plpbody{grid-template-columns:1fr}.filters{position:static}.qgrid{grid-template-columns:1fr}}
+@media(max-width:1100px){.herogrid{grid-template-columns:1fr}.hero h1{font-size:34px;-webkit-text-stroke:1.7px var(--ink)}.promos{grid-template-columns:1fr}.cattiles{grid-template-columns:repeat(3,1fr)}.rail{grid-template-columns:repeat(3,1fr)}.grid{grid-template-columns:repeat(3,1fr)}.trust{grid-template-columns:repeat(2,1fr)}.pdpgrid{grid-template-columns:1fr}.pdpmedia{position:static}.plpbody{grid-template-columns:1fr}.filters{position:static}.qgrid{grid-template-columns:1fr}}
 
 /* micro-interactions */
 header.main{transition:box-shadow .3s ease}
@@ -374,7 +421,7 @@ header.main.scrolled{box-shadow:0 5px 22px rgba(20,23,26,.07)}
 <header class="main"><div class="wrap hd">
   <div class="logo" onclick="go('home')">
     <span class="mark">MSL<s>.</s></span>
-    <span class="by">A <b>TOMLINSON</b><br>COMPANY</span>
+    <span class="by">A <img class="tlogo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPkAAAAXCAYAAADJAeliAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAOdEVYdFNvZnR3YXJlAEZpZ21hnrGWYwAAJW1JREFUeAG9fAmYZFWV5rn3vvdij4zcK7OyNioLqSo2LUTADRdowYV2tFtHwa0RVxj91GmXD01tsf1cGoUWkZZxGZ3pD3EdRrsVG9lsQEoEqqSoNWvLyn2L7a33zjn3vhcZmZVZmVU43K9eRUbEi7uce5b/LPcxeHaahVeIF4svmXyh8P1n4WLR1n9EhG4nHwqq3AtqIsOFWthJllmqmCpGs9YxNdTeHvVu3x4NNPUV9x13q5vAK4JTn+9yzcHLh5Nr1LeE+fN+JnNY2Gy8gmXuEfF1snNfyXqXG5/GpbXTHi3cLxgA4LB1qzUzUxRiCV6oy4il7GyUz7RFMAjhAPyumU7H9dnUOCyg+x3wN+L+/scsy3W5CAIcL8Dx+HG/rUvJ2tPpEBxHnoD3qP/oJGixWFvJb5bjjWYaAzvWfeaT8Ewbg+NIim9VkYvOn4WVj185tu97ycSugW32y1tG3llrbXvNZTWxsZortk6l6naLW3OAKYtxjr0ptnAIizokjaCYTCkejqWzQSp0glbpVn5TnT0ouHXv0erENz9aHhqHJkL9oHju89/UYv/Mr01NHnMykMKZ2cpMkIEZKmIM6gxUr8h23F4dfvMHpw/cBytc9YN9W246jTuvDqSq6T6btl1xc5PLFFihz910anbz4OMX0ne3rl59zn/l635V8yoTYT4Aq05TESpKt3c+XR679pVjf74TTrHd3LLpDW9tafnahPSmk23hjKtVNmu7Y9x/w7tm//wwfVbu3Xr3EBd9uPQmpiI+dXHirlkDUnydr9oekZkvvmRs1z/DChTn5zPtr/9E28abxsJwSpMZ+8R9YznbsT4blrd9ZeSJKiT8sG2b/aIh94MpBq+9BErrRyw/5wvPyUWRBUwIoiLOr4khbHwncOsiqUCGUWh73dKu3C0n/7zPlv/+RG3iuz+cnJyF+cLSMC63d216ZTlnv/1i1rIlC2F3jc2kWty8JayiJSEUkWI84qAkM5TQNMD9i4AxxVVEO2yBGwgI/EKYd/e65WO7uL/dr1dufd/U4R2wQMAO9r/kgXJQaW+r4Vwd7AU75pqP52ZG/bdwu/1eOf2xy4/t/yEsoowWtu+3r77qtfaaL7gymI54CEIJqDl1WMuB33Cwvm0ABt3kXmtXGs7U0tPU6B1Xi3fOlhh0sdtTqGwkc7rjt+E3Ovv6X5V1nhiHzozvKtif5uCxKSSXDZWYqiQkSs4NFsXbQ0Th+g96xe3wPQi4D0NI9w25VL/tq1c8t7vvc68r5N5y+tCe/x0TO5pyxnO7nHW9U2D3JspPzVuHYSHGQjjEanBhS/p2mIZNsAJCfznf3XW63XLto1EFbMFMn6oxdZDxIAyVSNpBHcbD4eS3Xj2dGyzInum06uHEijYxkgNcVkGJyU54Bm0aWNtoyu47FoR9PFkp7nGkHDjmlLPJfcMO33xIWb0WM1pvbs9TuPBUTCQGRzO+OjO16uaBAO4amN51cLnxRy3Wvt9hfUNC9RlmRibkHNrT0j82dkTEt4U/7Nmw7hVVa/dYhjkzoQV/YHWwJJI8kjDOeCxkZlKs8TfuIaN9xPtYBNKqF4Yj1dFl8/Ub0unL31Lo+/qVlnzDZaPTP4G5PWQDiA5eXW/b2cHd/kE3gCmrCtMB7X0JyhxvkTO0UTiC1BdIHo/HjcXSk8A9JuZUqD8Y6Z8xsFPpdf2+dUFfqeMDf+hY/Yvn73noCmhShINBtCkMWNcU7m8ocKM5P16IGBkaV24SpR98r73vd2+fODIEy7Qol2o/aAV95YD1hQiuaO9CyEHoiGDderQYg3P3Ig9YuB68cNISzKWaLzb/vWTxvfMu67j7VPx5yDQLw0Bbf/F1pQ17npYzqbIKlJ+KcGo+2CGDfECaiOEGCxARXkhgC1+5NBfDS5FZRG3FlNCvlowgF9LvkHiRgiqa+iO+K1Mtpf91e0fPeQmRbWZLjprD52jDmYPEdEjx6Fdz2Xr99LcAR0I23//1jjO2weJ6q7Et9P3pheJnD3s+ZHCTCGnQleBgHl8Gw9EcHQiiVKNPZkfSka7W4iHSKULDpr+0PKixzKnA9EZLizBkMgBJDIl0UjLSy6ER7Cas4UvmAwqVIgOl6DVA+oZGy+IlY/SEv2J/ckfV+7v6HgVDF3Gi8XGXIr1duDbJIiOMEtcVhnK1gcKazV+Q6ti+u1KxJzwcGcd2lIfEivT+auULCU+iECAV51+4b4qsuoPCk0KTbcMU/vxAOZCvzGz88X9r7V0LDSkFeVXY858+VPoHvTAii8HIXNM3wgNfoJgIEkJUhCjwCudLl0RShWSoCM/QbJAgHOnFlYtdEFs74EUhcNzWozIKU9J/3Y6ec28Ew3tGRfLAR4BGSAp/h0qcdoDQCPFd40LQAg4/HAbqrPbSwyuhsRci1+M8FBo6gbLGOSlFWpB1nGHSil4gk3IW4xNu/uaJBTUfkbIxl17wAmXEjP5TySsY7qD7a4G2xdCXDj95zJ/BpVjoYTHGtX41vZDSxE+MJlWGB4i0UjNe8gq670ipxuCyMUGzEAvNxYFKTZ2VXv3NuclZQGMlVoE1XzhfHv+tWRNn4lcqcKHT/nWYY5DFGvtod3fujGLhmkkrUgn0UvEI2hFotujKzLZZb1jJ/AHi8c26CSsapHnqTTbxR7OmMshiTn+wGMFxQjJNaM5YLaOcSIkS26AKVLvDyfada8/7PhgmXpIJe5hyNfKSTR1ifzna6HHzyaeLnZflBGvnAkdHBiS0w7BL2kfGjf9HQshR2AQKG4JoIMQhmHY9kNcM7fQvmNGuRLnAVvz3wofT050fiUeWX8xv2Soj73luEEj8mTC8ZhAW07zOjYeo5nB9sjOas1jibsffKcNB9LF2KCIyPsya8n1ZKube9/7OrfmEFhYSgRnBaewzMQwnuipDX1IegpQt+U1BdvWv1p5/03I0Ftz2pO4vVorKgBbyKBZCLd6OO9+GV6uiV65fizipVrw6rAwU0MIhnA0hJkiDERgEedz6DtRCq6QNvfh3D2qqVXh/N8fPhQPt+F2PzUp0/+ac/aoZ5imy2ElfXFsJhi5xqDqEhA68r8VC0GFH0MoFtMVXCa92vLkD9fUq5Lhu7MPBMRWpWg3fggbThpYFBW5teQesT5uZhvF38xhekTYpkW1DLcK1VkJlgmtAYCE7CuUXvre0aj0sbs213J4ddH0krHrkL7IkjobjRzYqpBRubM2RJwye0KwivtgI7BmK+Mk1bmYChvkIgbHAwlfCNUhOmagfQvNeFIRZIa/6l84NL45/tLgSlOR5zolJQqEA/xiPbzmnsPrSfVGdOuHJfXhXSAqlz8q5W6zi6BZf7csr+6kM8KfbI/dpi7Gn7TDc1Rl4u58fpg/1OFC3OSEVJ3RCBGGI7AKWBx+t4zmKnZtMZx1nr58NKsAFi+erZR9XiD9C0FFARNmFTNCNElvCW3LIbzm0jEW8uwX3soj8lbd8yFn4XSoLLIVUI8lE7ULIktYXESdwm48Gfmpz6J4DjZ1tfjFUIYCQYlqdQUwa/TW67Lzm8uh5Wevar5ZWnwNNiGBhy4DQKknGVCZzRYoDxRLWLbjXesirvJP+QGWk2Zxo7tKrj5DZrk5tELm/7hT8Hb6ajwKyjNuHgsmBsYjt8hnPzFM5wjAwKtXi7mjmt/r+WqEntAKWWAnShrjYKINYQ0S53b9wh76Rt9kYC506TrWm0EKG2t4Zq8dDT9W5dGwp0i53ihc5ubekILrEi1IhKgyLICHJqiUVS4so29lZLcEYDEsdZkusNUAyfIFZo4/Uy299Sbr4y2Po3ZNSpt8jDORHXQZ/3b7u67dOD18BS/jmF5RyHz3mlVEtSp5oECS0SDPYtd93B9ZY2X91mVwS85MGiI1HbPVpjlyb/WdPyKMGitFsTzAW8eNkFN6CLsj5NufnqTioSkRwEFcekIG8pLjq19eOidLNsHdxRaYQk0sZBzZRoXGzujQGiMY7xo0159b6kKigWMNyWgjGMHT/4FdK7su+tX17yE7sMun2qzWbftPC8q9MRajT+TRkEUZT7OE8y+5J7rFL7MxZHIujy6Ti+EOCPVdbae+B8tQXyjw4CDJVEYrXAob+jTWHeCxE+L4IcG+z6UnFcheCeP5aO33dXlxlW8RF1Y7jBii4ac8Cx3bPxLcPalKQEpUCmmMLafSR9wf1L6930q9yI3UW11AEIw1o+MJUVTzmgby8Y/2D5elS2wDsDGEROtSBnFBCYPZcOoGpxOmb16xrhvd8F07QPte1ofDGQts7xsL5fN4r0vCd2WM/vrUysgOWaddiJGeNguJTAW24xM00GkhwQGDFn3rh4Ue2wMm37/5y/ZZvtanMNV4c7NXsioSu2Aw6wVmFb4eJxoQYuI6iqzg4hoJk2TPXjO65+741537DsfmHgjCxWRTWY3Izt153S8va1vfPHJpeMK66sXfd1Uz6BYSaUvvbOlYh5Trb4XdNum9KKX92c7EdlWX1hAuQsQCZxrTi4/CXbYskPpqaxpqopsyoFOcQqC9rTO26Lxj/7x8u9Veeqs5ItDq8MV9Uh2OBl/6brYXf3rwTXgSLpHxmme2ZYG6kGY+pZB5MozVqGA1JafcsniC9pHA+vw+9W27b/kRwG6ys3T5Z++IHSun+Ayl3bEK1IZdXWMmPMrnIeiK5Z9q2Vq9zbXA5OWRerJAt6ELLfMfwofWfqo6OwMm1H/7zmg0/eUWq494JjCYIqYPmJmqMpiLwc2vnbrWRZBSbSPiPQUnYsLs2u2N3zfvCNd19U7uqZWVzZvA/9kHu82Q0lXvF2tRdA4fgUlgko+GF0rMQteLYaKLiHEbUFLVvasvyVJstCkGTv5b4MT6OuYpDHlbQcmvXZseyzPGtSPv7JOAWmvp2HP53tYkvwSm2HTX/Sz2C+ixDEtpWqNnydQxyCa91bs7xa/yeNOCUHWrw8dPD45/sJsxK0SeV0t8jhMcgSBU2pzs+B/OD8Zpel2ZbPjskEdsolPI4YxKiYzfsO49+aGrHE6EVdXDMiS2XCGdqpR+eepNsCbwXN8V4071cz9lmousrIyPVn0xNvHEzZHhEAAenhXkjqCHPuiqKOqLMC+/a8LwrwQj4PD7ymQzpJ8meNBLIyIxPJ/dAGNi0E0ksBq8a8tkFdubGb7f3nX9Ty5kbb+hY1/OPa1taKf6xzSgTa8Do7MaS7qwe/e3Ljj654a0H9px/3eDDL7huz87z33Zwx1nnH/vTW4H0BrZ8ZLdUbXLw3cZuZvBlIpB3xwJ+srqVf/Dwgfu8gE3WBWdJuo3gMuoSqCrW1rhR1uM4FUCi1JCekLHY6oHpwel7po9e3ZMNeYQ0q1kmpYtuH68xK+zIpC/5duuG18IirpGDPq6HVtJvlBAszTcWLNNkJA2MbFIkGmChVqzBylq6Xk85luS2skx8IDTBBoz/Ql6Ig3BqjY2PTo/yTDdGU3xbxmk2aWwOoPeYW+JnOlabhhEq7GA3wpH6ZdX0l4rp/CfdUIeLGPEtRp7l2YXs1QMjvX8/AEP1+Mfyzs51l1sy2xuoiuI8Adk86mdZ8bvpCWJ6RCqFqJISVEGxAsDZ3Boe8F+saQaUS3OxjkQ1/jZ+YhzMgGtHd/34go4X/5uddV+FjCkxT8Edl7w/EMP1WvScXO5/frN746/fN7JvrLlPDMdwnWGKZGyljbtUZh68EG35g4jX26R9oI6WyA4jHUXX1pUMrQw7Lyj2PZzRwdQ88ktRYfA8eneuO2CYMpjmYfgfYSq8J7L8tC3qFrOqQRDV29TE4Xsq8FSrrP/0zdNHH4c4Dkfz6Y78TJrNoEDglktiixAy6EvfE9b3JEuHkyQr/Tcm1SAavDYeu1vEgGVVg0sz+ezfxzfWoYDG2dV8qXeXYlEYO2iLE5ZvHTlw+/7slndGlnihwZtSg3dHcetgbVZe0bX6J48A67htan953gR8JWztxyrtZoGG6ovH6ZbXYIss30TPVx4DRg3N8yHBCsdEXJHxPPS+6pYNoVufhlNrahrGo8EsDwNMgXGVBMPRq+N1okLMq1Y840Zpg/7XVlkXvwH2+2PhP6zmGU+yWWUKujjldfmoF6Zbujs+DE0pjeen2r46ImcVugUaIJioCRe5mvXw35Wf1oaqanmcu/KEFvRZa+rEX1FqUucYWBK4QQr4YSG+hf/f8ftf3c0yrq9TccogA6X9HzEzU1EXtbQfl/JJybSfFDwoRhFfCltwtJ5OI/C2uzry8zNQ2YY6eNpQbsjlNpvAdNuR0INDYR0OY7jkQMCsYRVmjoVQ9Dy7zZGqy2FBXxj4m2pB/dyqVb1wCnJ/e2k+/ZnnrG7/077+c3fe0WTtXZwrFYwwnd82xoqsZldgTcEzaGioallf6hBY4hJKCtKF0KhFCEjBCWNayHWhy4lsRLIsuYffeMB/xRm820vXPXKejKeD/+WY4Ht93/psa9tDYFitQeO0kq6jEgk0mRvtMpA2GZw/z+WFfMkk0srr9Wg1k2mC6ZaGbASUXRujbiicRZFz4RTbFFyoCmxKOVHUYBPKY1Jm1VKGAhS8Uzp8zhoTJ23qZ4YbOIeqg/ZU3S+lULIpkZCkAMdVXb6mmP/4AGwlqy9v69x6LtjZM0IEXCYuitrTsqPTeQF+PDnyTogZq2O6ni75SgvFybdnWTUwU1RinCgDFx2mEtiGtAG5qzr7olVOC8WxQ8ojxyE1mE5RYjm7/u71534BmlI+EqNUMgyNa0cxDmYQTxlU4pOz90wfvWcInP2pVIr7qF0EhTwpD639eDMnTkUvFJ1laXAo7YFWMU6FgIufEQ/R9xZmWiqOD4cwOj5Zl/KI4lvOX/8isuZaBzuRVLPWKsycEEsYq8c1svA9eAbNR3iTCkOTyOKmcrJYz4O0/Ib907sZqzGTqkTew0hU3Wn4wAoDmN6PK4cu2ZQqYChPRc2FWlJ6cpJ5Z9zXc/YnoAm2p7hwZ1IG/ieughZ1AqLr58/zLx3nWbS1ow63VR2t46QubEm0Hk3rZIun57fD6AtH4CFCMBFaKmbAAAvCMsHsuGtXM2UjmU12i2xwlHUG5tbPdwyXb2iF9hATatIQVxJD8TEo50/vCN5GP9yad761P5pFRZLijZBz4ImyJx78gL/nKYj31Ee9Yitlag1O0BRb6Yf/v5rUFQlMmTytruZiGvU0O3rWa8Z3bT9UqX4tny1boYhkFKeVMaDEJ8PJaFM6/4nvt2/aDLFPJyi8zhP/kmkhJyHgpN3HG/3yL+959PQ233tkXZqzFkxbtWISvBX7XoX3ptD8WYEDaT+LzpCANKuh0vAxJeyhZXSpABXRYKSVsYVK3glTOldsRQ7nuIsu97fe3HraWXowYbFi4IOp7ElKlHDNwnpGvhEuUtI8Qu0AMp2CpKBvCLzB1lLOqW1yUTH7AwjNKdY/j8bXHfvz/X+Kyt8rcks0MmOg3Sk+FUJ4ml36wk1d/Rvj+6GWRi/GNzUMLEYSZLwCRGQL/d9nRchnOYbZZEYn7XVGL7YTOQp0Mj8Dp9hcOMJK5TTP1qkMUxcy6eICk7YJGlpaapg03+9gal6ES12H2nSsWr6hIDCSgr1QBVGE0Vc3iGR/Pv2pd3V0FPo4P581VYyxKJJ9+Qz8KNybWHH9nZcBVrZjy7hEI1Uv5MI421/KHz+ZMzkmLCa11ZWmqovrgyhJoxSOuHzsiQ+fXusYksrhhLCVtv4Uf+Bib2VaXlTqeviO2JLn0zKkyi5Iilri/ptqsTRhfoT02jL4+AvuHNzd+1B19tK7apPv/WV9+vqfzkz84xirfT2Xt76TV+JnuSj8bWB3PSSYfBxU227GVh8ucX5ss2uPruWpOA6j6x3AwFb0n3Ad0zJ4kaYGyR0pgLl8JdBWpcJT5z3drJoop3E8YfZZYwzLhVzdbaDTgl69CZzrII4OPGtokzqOxoeefEfeyYwrKiBLyg2lpp+1H6bUFYWuhyBmEhuxEkl2subm6PBx04Tl2smGJBZpQVZ5uOvkqZFnFOfJMayCawki0QOn1vi2Qm/WV3baTU+iBrd0+oL8P5tSk2Dp/BXGdoAvqDajv+uKz/8Af33P6PQXr+7v+dhuN0hzKhZEy0GQMwrk2muzvXv2Ya6ex+kkEgkbE8kj1fJ/XD92hAI4jTRHNoKMZzugIataWnDZgglYaEkDizYQnmEjFbIS/W1KAFRStxCn8ZhQCyM4uijjTm/ieZfnMsNPlzPSUTUUYUunhYhWE2y00L7xuT+BfY9dIZkTkdFmQcMJ0P1GFD0mvI7W/Dvr1zuJxcHlTj1hiftenMre+7c7dxorOAErao+2ntbiFAu7XI4AIAmA4TWL88oL1kWfjIeB28Yc8JRqKB4StF6WWj+PECtv+v60yPTWMbRmxRU9NHIRhfJnMF5p3KhLH1gj02DSZILKuBfSWJPq/srwtlenug7uc91QWdJKgsmexdWE8jv29pz9vf5jT7x9UoFvwNKceCectm6RyS6zHN6odKOS08Z1Mv7m4GCtGIV+XVgmZ4r92chHR9E3uail9fNwak2uauv5xAxVGpGuiokoWajrgYssq4MqpqRhoZBzypgtlARJvvmjE+4/5C2qm4y0eiRlSWWPrlLdFo9FQeMjtOI8Az+fmn0vLDhiOIM6mjJ0y2bD1Fx6T5e0UgkvegtTUlXgmTRd8r+ywF8SkNR5KX1WgC3F7ezdowdGHpry3tOKiBgJGDJdJYDeNvpeFT8bbQLndd/u3PSS/XzyUBbMUS5TsBGZoN4cX6urCmufervdM3FlavXYVaJn7IMqN34ZlOoDPWvOg+bK0hM3ft7U/pmn3ModaaWnZC5cQEUFsIZltKVmLJoi90uXWtMrXlWM/G/NZt747b4+SneddHT91o7TzusDewPGCpSpPUMlhsFJKtov+tnJpiliMinJshjXhZQ5P35ELa3vGdp/6EE/+mhbmhPw0HCJ9iaDdntCBtFMznnbVzo2bqsG3lHMNsTxER5fbNGDZctb8hO0k6jMCvd4XkVmgjRElMKImYMqMZQ696HV5+x5yPNvwWDisUJkVZg1U4lcJnvcECpxjFxGFsZX0TWLqvmjLN99kbDfnAX20qnQCwSzbBPFpYMiPqaALDiofF3gYHYZFh60w9EDNgTb8Jvtcx/hxH45xb/66W7n+l21IQwVlphlTiNxqkZSMk4qK4oB+Hw4cH/75VltxecpSxHlMVkYaNdkKTknwltNGIteQhTMCBkgb4mLb2s9fToSmG/lS59ToG8CaQwfWlNYJTpzj4888N0c1EOLF1YE/pk5SRKnd6Q+lMFALCZgurzhDSP7bntiU/ROD1ou4BhF5cqYKfTDxW6/JrcVCneVfOv6I2FoKuji1cWgvdHZdH3WOeSpbOIik7Ibnp2FbaLlkxhr+S+wsibvWb8+nRN9b5wJJzVNEzvdiYr+Z7JCR06hGzJDVTqOqUupDWJBf0Q9JT37xZn2o3d2d331SCh2pVPD5WLVKTPuU31JgwY+Hangjl2xWD4Mo9Imq/CSVVnxd3v9aojBWktDa0phMVOUzFj6yDwaJ//FPQqN2PylaCzedPQPX/3PjdveJpg6W5kgiamex02eiHx5Ua5w90i19vlaXIUqGwUgqpE9aG7PSMhXiioHcPi3q44jg/5khz5YoEwVFEI9DKFEEuNm/Rdb2X8iPy/UQetWSKMEsKyEuoj9DW6qsxyWg808DZUoAFowxjnsxBpSVN3F746lw8rThw5qbRppDp5PT32EhtmqF7YvlAN1G2wPNs+u+cyWNufLvIyhKMWYKYCkrw0LobTLPifLfzg6+G5o8sWT5kMlq1gGGuVcizR9WLLpa3oJSFFFmKLn/JqzW+1r9NnjZNilmjJbSD7vWqTA7ra2X4qw7DG3szHdEzZmDlBo94+ZGgIZpbJL3E3T5v+yZ/DiT298WWV7WOEZHdwwHIzYks2GXq5H2F/DIHfA59kBBc1hkAfr1dl2nu0N6QisrkRDZhQiWBOo1+/feMbMsPRHqzylPM/xWcLGzJwRwAC08u0cb5dFu8+eXne0Pm5zy0KdEvEEBdPAGzDzRn8/6U4/eUGx/c310I+BenyqGW3NHhWmerLiU/1UeyvyEGQwrcvyZlNZkttG6cI36UDpnmvIp1NRoNBbs1RcB0D/KOKUEiFM56pPwky8ajZXkGTOqTBdPi6iKLUEjbVr9EDlyEWvKWycHfUqpJwalEOQiUwpi9257Fc8GXjYX+NoI1uCT05ZyE82RPQAH//NWdw+tywpJcKbf08VVUiTMM51IzNEVD+vdLqkkdmJQvP4AA1LfI0FbDrGryGKiWSbfK8PIkjt/xW6Mbp30kS6qopDclCdRvEFOfFb8cOdC5cl9g+lbn5Dce1ntsNI1mJI1ojFJ+VMxQa3Az7usn+/fmbkAMy5Y40mdNJweQmLmhCGDmIZXnFIEdbDGOIxdkIZTzaWLFQVZmHGagk4wg+iMfmK8oTAV5rcLZhjl1yZM3noCZ4Qvt6MtD17ZuySl5ZK9xxF3xHhuhXrORJ4RhWSuEvHAz3sP8mTexDtRY/mDKZMQM48EETZFZTRKc8ucuEUM+g+ODZlOhrx6WTVOhuAogYHfTrpxXXCP6LjlrQ/EnVzKuAzobhfD+un/60bcjfsY3U6aGC8cpPhYdlA6OpNEjwZZoFOTBCiSUpxzXMMIr26EEweXOrPLKazEXGMKU62yLUY0Djm+42SWsWaSvSkeU/PLvDECZmDfWxkpNpjrb7iBanS/5lypyLPRu2l5UZRqIMpnQlhqSVPsDS1ZyW6DjSd2tjnO3laKj07k7aWcSomYWN9ZpzOjzOIjwCyOTjLTGyE/DtDXKlrgu0YyxAfIECU54kC3Ds9cfW80dXcMUFqOq8oGJ+AnYtCJspb/mhk5OOnpTG3Qw4noQgq+cQL4bTcbLfCP1WH3w1LBGwihqF1tegRs0Yj3ZOkohrTTOan5t4s65hyFuej6SwACUEVomgRzRO34w6qq6gxCJWikuLhkp+IATWkfPf4jt8dcGd+0JZJW4n2ZKz5bOnCJyOZOSa168N1ecNmO0fFIol20PfQ+Ey7/MzU0kqz3/OvSB85TkYIWRI01M8dwP2yMboOu6+f3a9dqQ/PPPVH4dd32CT/ZAdZkrdGuxxRzX58dBTmQlgKkk1YEJ9VyUsjpGj8a9Q56NzxR8PqrV8aH29Up9EaIja3z6SE6Hhs5MnlaGxdefSPdzE5+dNyNoWJSxrSKH7J5lDGwuAttYMLOltWyDEPLcxyyA+1Yv+JawHMqxUnddmVk5Oz984c2Loum5N5y2EWbWIUH3Kkg/gQW8pYhZqz3sZ7TyjbOEum1YTQCoHOmlMNdBvCgTUsy5+u1d71oYndf4BY7WMckydnlTVG43GYQtiifXE50Pv/kamdt2S4VYb4AL3WN/j7jLD449XqL/51cujwUou1FdX0z0kpi88PS94EX5WuvDHMCQvP6KvGa/L5UlfjFxpfEjVzmFHgItknlqCY+Ny0SDQexMkIxhqMy2Kr5IeVIpy46cKXvzry5FVZySc4o/o/C5dkU07aBGv12lnDHKpY8NvN7/l1k4MP/XFm5gNn2S08halh9G0hCt2Yef3YtzU+Ju3Z3DLiY8oU28dlUv2sPl9OpwhQaktOxPqhpfLrvTMXwJwrxf/H4Uee22W37u6xsryVHk6SmFYexSIdp1lZzCPxcxXM2GbMRDHQcWkDMlHyME9O5aUbMlmBU/3Fyw/u+iA0VaZJXuBEm4SX0c+GKqZQzm3pWo7G2jX6weCON25l9rROAwPEwCGe2yIXxYzXLehoWbjebYupHtsZdqQ/rUWROVr7l4RTygl7peXrWjO9ZWJi18DERGZzcet7co71muem86cNgZ+30nVHRZ7DIGdTgQVFuNSCBw5ESEFfWeiNleikUVSIpI9pM8/hufpRGR7eG/r3/nF26Gs3zh4hX7xxMsqRouZwdazInZlQyHgqwuqtbXSH4HF1gvnCfZNT17w013LTLAsndD08OuhnpXparh597BpYxBdP2hp0yltbguEaiGkubR1nWBOgeVcqQavQ66fqGwr2MCq6aZ0/PWkHyDQ7FiRi0XZL5b3Ai/JhajqfTw+vk5yecKS/J+uRA6eUUfnG0bh2KA5WgaMxDQP9RBjQSYMMB//ICobWSPHntdFtb2pd9ftJvzarn7pGqJIZITIxNRXfqkSrlGpsvLEJ9mWjO2/5VmXdT8NS/qqzOXv5GpbrR42R90QxlVY+MloWO6og71LaWT/GBfSjl3QknVCzTiYHKKZ+r+fUJqG65/Hy7J2/GH/8toE5Q6cJO0DZk90PPOf7bev/KssL73pBKrVlOJMqWRBirtNPKSnsEJ3sPK9yO7J1YQkJvV4kKTDUPtWQS4yMI84RVDvtyzRzcx4bv9+beXRHePDWq8eGHoO5Z7zpVpLWoLRVjU5OC+VBGxqnejqfEUFpeAU0popDtXpy6KIrWnvvOSTdKWY2c9Em0J9tReNRHhycx0zLWeKVPDH0ZHKMyXiNSZCufs+2bdaZM108dJ/ksx56K1HEa4s8MTNLqt1GKOw4cmduUG7dSU/qXAQXzn223EMHTzT3Ez01M47dLNr3cjQzxfSn9hTZlbSV7FnyhKoTxU5X+tTXk11HotHUgr91G8DPJvr7bXp6agvywgTywsKnp9KTUyMhZBfyQls2G+3Y2yIpYNp0y3F81jT2vP0euPhia+LIEbEBxxsKAr4zCIS9CO8VcMxN6XQ4g9+F6bRs39sXLfKU2IWKf7m9oODbcqW1p0LjeeP+P7K9yN7L4lsXAAAAAElFTkSuQmCC" alt="A Tomlinson Company"><br>COMPANY</span>
   </div>
   <div class="search">
     <svg class="mag" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4" stroke-linecap="round"/></svg>
@@ -393,7 +440,7 @@ header.main.scrolled{box-shadow:0 5px 22px rgba(20,23,26,.07)}
   <button class="navi all" onclick="go('plp',{title:'All materials'})"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16"/></svg>All materials</button>
   <span id="catnav" style="display:flex;align-items:center;margin-left:16px"></span>
   <span class="navsp"></span>
-  <a class="navi m" href="#">Calculators</a><a class="navi m" href="#">Spec sheets</a><a class="navi m" style="color:var(--red);font-weight:700" href="#">Bulk pricing</a>
+  <a class="navi m" href="#" onclick="go('load');return false">Calculators</a><a class="navi m" href="#">Spec sheets</a><a class="navi m" style="color:var(--red);font-weight:700" href="#">Bulk pricing</a>
 </div></nav>
 
 <div class="view on" id="view-home"><div class="wrap">
@@ -409,6 +456,11 @@ header.main.scrolled{box-shadow:0 5px 22px rgba(20,23,26,.07)}
 
   <div class="promos" id="promos"></div>
   <div class="trust" id="trust"></div>
+
+  <div class="block"><div class="loadcta" onclick="go('load')">
+    <div><div class="k">New · Order by the number</div><h3>Not sure how much you need?</h3><p>Tell us the job — driveway, drainage, patio base — and we’ll build your full materials list with the exact tonnage, ready to order or quote.</p></div>
+    <button class="go" onclick="event.stopPropagation();go('load')">Build your load <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div></div>
 
   <div class="block"><div class="shead"><h2 class="tick">Shop by material</h2><a class="lk" href="#" onclick="go('plp',{title:'All materials'});return false">All materials <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
     <div class="cattiles" id="cattiles"></div></div>
@@ -431,6 +483,8 @@ header.main.scrolled{box-shadow:0 5px 22px rgba(20,23,26,.07)}
 </div></div>
 
 <div class="view" id="view-pdp"><div class="wrap pdp" id="pdpwrap"></div></div>
+
+<div class="view" id="view-load"><div class="wrap load" id="loadwrap"></div></div>
 
 <div class="scrim" id="scrim" onclick="closeCart()"></div>
 <aside class="drawer" id="drawer" aria-label="Your order">
@@ -503,7 +557,7 @@ function P(o){o.id=++U;return o;}
 const PRODUCTS=[
  // AGGREGATES
  P({n:'Granular A',c:'agg',sw:'granA',u:'tonne',p:16.50,o:'cart',den:2.20,std:'OPSS.PROV 1010',sz:'26.5 mm minus, well-graded',use:['Road & driveway base','Under asphalt','Under concrete slab','Compacted sub-base'],desc:'The workhorse base material. A dense-graded crushed stone that compacts to a tight, load-bearing base under asphalt, concrete and interlock. Produced and tested daily to OPSS.PROV 1010.',st:'in',fl:'',pop:1,tr:[[1,16.50],[20,15.25],[100,13.95]],src:'Quarry'}),
- P({n:'Granular B Type II',c:'agg',sw:'granB',u:'tonne',p:13.75,o:'cart',den:2.10,std:'OPSS.PROV 1010',sz:'150 mm minus',use:['Deep sub-base','Fill & lifts','Soft-ground stabilization'],desc:'A coarse sub-base for building up grade and stabilizing soft ground beneath a Granular A base. Economical structural fill that drains and compacts well.',st:'in',fl:'',pop:0,tr:[[1,13.75],[20,12.50],[100,11.25]],src:'Quarry'}),
+ P({n:'Granular B Type II',c:'agg',sw:'granB',u:'tonne',p:13.75,o:'cart',den:2.10,std:'OPSS.PROV 1010',sz:'106 mm minus, crushed',use:['Deep sub-base','Fill & lifts','Soft-ground stabilization'],desc:'A coarse sub-base for building up grade and stabilizing soft ground beneath a Granular A base. Economical structural fill that drains and compacts well.',st:'in',fl:'',pop:0,tr:[[1,13.75],[20,12.50],[100,11.25]],src:'Quarry'}),
  P({n:'19 mm Clear Stone',c:'agg',sw:'clear',u:'tonne',p:34.00,o:'cart',den:1.55,std:'Washed, no fines',sz:'5–20 mm, angular',use:['Drainage','Weeping tile','Under-slab','Septic beds'],desc:'Washed, fractured ¾" stone with no fines — water moves straight through. The default for foundation drainage, weeping tile surround and under-slab base.',st:'in',fl:'',pop:1,tr:[[1,34.00],[20,31.50],[100,28.95]],src:'Quarry'}),
  P({n:'50 mm Clear Stone (2")',c:'agg',sw:'clear',u:'tonne',p:31.00,o:'cart',den:1.50,std:'Washed, no fines',sz:'20–50 mm, angular',use:['Mud mat / site access','Heavy drainage','Erosion armour'],desc:'Large washed clear stone for temporary site-access mud mats, heavy drainage and erosion control where bigger stone holds the grade.',st:'in',fl:'',pop:0,tr:[[1,31.00],[20,28.75],[100,26.50]],src:'Quarry'}),
  P({n:'HPB — High Performance Bedding (7 mm)',c:'agg',sw:'clearS',u:'tonne',p:42.00,o:'cart',den:1.70,std:'Washed clear chip',sz:'7 mm clear',use:['Pipe bedding','Interlock base','Setting bed'],desc:'Clean 7 mm clear chip that beds and screeds easily without compaction — the standard bedding for pipe, and a stable base layer for interlock and slabs.',st:'in',fl:'',pop:1,tr:[[1,42.00],[20,39.00],[100,35.95]],src:'Quarry'}),
@@ -523,10 +577,10 @@ const PRODUCTS=[
  P({n:'SMA — Stone Mastic Asphalt',c:'asph',sw:'asphalt',u:'tonne',p:null,o:'quote',den:2.44,std:'OPSS SMA',sz:'Premium surface',use:['Heavy truck routes','Intersections','Long-life surface'],desc:'A premium, rut-resistant stone-on-stone surface mix for the most demanding pavements — heavy truck routes and intersections that need to last.',st:'low',fl:'spec',pop:0,src:'Plant',attrs:{'Mix type':'SMA','Structure':'Stone-on-stone skeleton','Use':'Heavy / long-life surface'}}),
  P({n:'Cold Patch (30 kg bag)',c:'asph',sw:'asphalt',u:'bag',p:24.95,o:'cart',den:0,std:'All-weather',sz:'Bagged',use:['Pothole repair','Year-round patching','Utility cuts'],desc:'Ready-to-use, all-weather cold patch that compacts with a tamper and takes traffic immediately — keep skids on the truck for pothole season.',st:'in',fl:'',pop:0,tr:[[1,24.95],[40,21.95],[100,19.95]],src:'Bagged'}),
  // CONCRETE (quote)
- P({n:'Ready-Mix 25 MPa (R-2)',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA A23.1 · R-2',sz:'25 MPa @ 28 days',use:['Footings','Flatwork','Sidewalks'],desc:'A general-purpose residential mix for footings, flatwork and sidewalks. Scheduled and dispatched from our plants with Tomlinson Live GPS so you know exactly when the truck arrives.',st:'in',fl:'',pop:1,src:'Plant',attrs:{'Class':'R-2 residential','Strength':'25 MPa @ 28 d','Max w/c':'0.55','Air':'5–8%','Slump':'80 ± 30 mm'}}),
+ P({n:'Ready-Mix 25 MPa (R-2)',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA A23.1 · R-2',sz:'25 MPa @ 28 days',use:['Footings','Flatwork','Sidewalks'],desc:'A general-purpose residential mix for footings, flatwork and sidewalks. Scheduled and dispatched from our plants with GPS-tracked dispatch so you know when the truck arrives.',st:'in',fl:'',pop:1,src:'Plant',attrs:{'Class':'R-2 residential','Strength':'25 MPa @ 28 d','Max w/c':'0.55','Air':'5–8%','Slump':'80 ± 30 mm'}}),
  P({n:'Ready-Mix 32 MPa (R-4)',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA A23.1 · R-4',sz:'32 MPa @ 28 days',use:['Garage floors','Exterior steps','Curbs & porches'],desc:'A high-strength, freeze-thaw-durable exterior mix for garage floors, steps and curbs exposed to de-icing salts. Air-entrained and low w/c for the long haul.',st:'in',fl:'',pop:1,src:'Plant',attrs:{'Class':'R-4 residential','Strength':'32 MPa @ 28 d','Max w/c':'0.45','Air':'5–8%','Exposure':'C-2 / de-icing salts'}}),
- P({n:'Commercial 32 MPa (C-2)',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA A23.1 · C-2',sz:'32 MPa @ 28 days',use:['Structural slabs','Commercial flatwork','Loading areas'],desc:'A C-2 exposure-class structural mix for commercial slabs and flatwork. Mix designs tailored to your spec; QC backed by CCIL-certified labs and optional Smart Rock in-pour sensors.',st:'in',fl:'',pop:0,src:'Plant',attrs:{'Class':'C-2 commercial','Strength':'32 MPa @ 28 d','Max w/c':'0.45','Air':'5–8%'}}),
- P({n:'E-Line Enviro Low-Carbon 32 MPa',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA A23.1 · low-carbon',sz:'32 MPa @ 28 days',use:['Buy-Clean projects','LEED / green builds','Civil & commercial'],desc:'Same strength and durability, materially lower embodied carbon. E-Line Enviro uses supplementary cementing materials to cut CO₂ — built for Buy-Clean procurement and green specs, with an EPD on request.',st:'in',fl:'eco',pop:1,src:'Plant',attrs:{'Class':'Low-carbon 32 MPa','Strength':'32 MPa @ 28 d','Embodied carbon':'Reduced vs. reference','Docs':'EPD on request'}}),
+ P({n:'Commercial 32 MPa (C-2)',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA A23.1 · C-2',sz:'32 MPa @ 28 days',use:['Structural slabs','Commercial flatwork','Loading areas'],desc:'A C-2 exposure-class structural mix for commercial slabs and flatwork. Mix designs tailored to your spec; QC backed by CCIL-certified labs and optional in-pour maturity sensors.',st:'in',fl:'',pop:0,src:'Plant',attrs:{'Class':'C-2 commercial','Strength':'32 MPa @ 28 d','Max w/c':'0.45','Air':'5–8%'}}),
+ P({n:'E-Line Enviro Low-Carbon 32 MPa',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA A23.1 · low-carbon',sz:'32 MPa @ 28 days',use:['Buy-Clean projects','LEED / green builds','Civil & commercial'],desc:'Same strength and durability, materially lower embodied carbon. E-Line Enviro uses supplementary cementing materials to cut CO₂ — built for Buy-Clean procurement and green specs.',st:'in',fl:'eco',pop:1,src:'Plant',attrs:{'Class':'Low-carbon 32 MPa','Strength':'32 MPa @ 28 d','Embodied carbon':'Reduced vs. reference','Docs':'Available on request'}}),
  P({n:'Self-Consolidating (SCC)',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA A23.1 specialty',sz:'High flow',use:['Congested rebar','ICF walls','Architectural'],desc:'A high-flow mix that fills congested forms and ICF walls and self-levels without vibration — a clean, dense finish in tight, heavily reinforced pours.',st:'spec',fl:'spec',pop:0,src:'Plant',attrs:{'Type':'Self-consolidating','Flow':'Self-levelling','Use':'Congested / architectural'}}),
  P({n:'Sulphate-Resistant 32 MPa',c:'conc',sw:'concrete',u:'m³',p:null,o:'quote',den:0,std:'CSA · HS cement',sz:'32 MPa @ 28 days',use:['Below-grade','Agricultural','Aggressive soils'],desc:'A high-sulphate-resistant mix for below-grade and agricultural structures exposed to aggressive soils and groundwater.',st:'spec',fl:'spec',pop:0,src:'Plant',attrs:{'Class':'Sulphate-resistant','Cement':'Type HS','Use':'Below-grade / aggressive soils'}}),
  // TRAP ROCK (quote)
@@ -573,7 +627,7 @@ function card(p){
 /* ---------- home ---------- */
 const PROMOS=[
  {cls:'red',k:'Winter is coming',h:'Lock in your salt tonnage.',p:'Reserve bulk road salt and Thawrox now — beat the season rush and the spot price.',cta:'Reserve salt',sw:'salt'},
- {cls:'dark',k:'Lower carbon, same strength',h:'E-Line Enviro.',p:'Buy-Clean-ready low-carbon concrete. EPD on request.',cta:'Explore E-Line',sw:'concrete'},
+ {cls:'dark',k:'Lower carbon, same strength',h:'E-Line Enviro.',p:'Buy-Clean-ready low-carbon concrete for greener specs.',cta:'Explore E-Line',sw:'concrete'},
  {cls:'lite',k:'OPSS-approved · diverts 100k t/yr',h:'Recycled aggregate.',p:'Spec performance, lower price and footprint.',cta:'Shop recycled',sw:'rca'},
 ];
 const TRUST=[
@@ -603,6 +657,7 @@ function renderHome(){
 /* ---------- PLP ---------- */
 function go(view,opts={}){
  window.scrollTo(0,0);
+ if(view==='load')renderLoad();
  if(view==='plp'){F={cat:[],use:[],avail:[],src:[]};PLP.cat=opts.cat||null;PLP.list=opts.list||null;PLP.query=opts.query||'';PLP.title=opts.title||(PLP.cat?CN[PLP.cat]:'All materials');
    document.getElementById('plptitle').textContent=PLP.title;document.getElementById('plpcrumb').textContent=PLP.title;
    const cobj=CATS.find(c=>c.id===PLP.cat);document.getElementById('plpsub').textContent=cobj?cobj.blurb:(PLP.list==='reorder'?'Materials you’ve ordered before — reorder in a tap.':'');
@@ -768,6 +823,65 @@ function observeReveals(){
  if(!_io)_io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');_io.unobserve(en.target);}}),{threshold:0.06,rootMargin:'0px 0px -36px 0px'});
  els.forEach((e,i)=>{e.style.transitionDelay=((i%6)*55)+'ms';_io.observe(e);});
 }
+/* ---------- build your load (job estimator) ---------- */
+const JOBIC={
+road:`<svg viewBox="0 0 24 24" fill="none"><path d="M4 21 8 3M20 21 16 3M12 6v2M12 11v2M12 16v2"/></svg>`,
+asph:`<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="1.5"/><path d="M7 12h2.5M13 12h4"/></svg>`,
+paver:`<svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="1.5"/><path d="M3 9h18M3 15h18M9 3v6M15 9v6M9 15v6"/></svg>`,
+drop:`<svg viewBox="0 0 24 24" fill="none"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z"/></svg>`,
+lot:`<svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9.5 16V8h2.8a2.6 2.6 0 0 1 0 5.2H9.5"/></svg>`,
+leaf:`<svg viewBox="0 0 24 24" fill="none"><path d="M5 20c10 2 14.5-6 14-15-9-.5-15 3-15 10a5 5 0 0 0 1 5Z"/><path d="M5 20c2-6.5 6-9.5 10-10.5"/></svg>`};
+const JOBS=[
+{id:'gravdrive',n:'Gravel driveway',b:'Compacted granular surface',ic:'road',L:[[2002,150],[2001,100]]},
+{id:'asphdrive',n:'Asphalt driveway',b:'Granular base + HL3 surface',ic:'asph',L:[[2001,150],[2013,50]]},
+{id:'interlock',n:'Interlock patio / walk',b:'Base + stone-dust setting bed',ic:'paver',L:[[2001,150],[2009,25]]},
+{id:'drain',n:'Foundation drainage',b:'19 mm clear-stone surround',ic:'drop',L:[[2003,150]]},
+{id:'lotbase',n:'Parking-lot base',b:'Heavy-duty granular base',ic:'lot',L:[[2002,300],[2001,150]]},
+{id:'decobed',n:'Decorative stone bed',b:'River rock ground cover',ic:'leaf',L:[[2010,75]]}];
+let LOAD={job:null,L:24,W:12};
+function renderLoad(){
+ const jc=JOBS.map(j=>`<div class="job ${LOAD.job===j.id?'on':''}" onclick="selectJob('${j.id}')"><div class="ji">${JOBIC[j.ic]}</div><div><div class="jn">${j.n}</div><div class="jb">${j.b}</div></div></div>`).join('');
+ document.getElementById('loadwrap').innerHTML=`<div class="load">
+  <div class="crumb"><a href="#" onclick="go('home');return false">Home</a><span class="sep">›</span><span>Build your load</span></div>
+  <div class="loadhd"><h1>Build your load.</h1><p>Tell us what you’re building and how big — we’ll work out exactly how much of each material the job needs, ready to add to your order or send for a quote. No more guessing on the tailgate.</p></div>
+  <div class="loadgrid">
+   <div>
+    <div class="step"><div class="sl"><span class="n">1</span>What are you building?</div><div class="jobs">${jc}</div></div>
+    <div class="step"><div class="sl"><span class="n">2</span>How big is it?</div>
+     <div class="dims">
+      <div class="f"><label>Length (ft)</label><input id="ldL" type="number" min="0" inputmode="decimal" value="${LOAD.L}" oninput="onDim()"></div>
+      <div class="f"><label>Width (ft)</label><input id="ldW" type="number" min="0" inputmode="decimal" value="${LOAD.W}" oninput="onDim()"></div>
+      <div class="area" id="ldArea"></div>
+     </div>
+    </div>
+   </div>
+   <div class="loadout"><div id="loadResult"></div></div>
+  </div></div>`;
+ computeResult();
+}
+function selectJob(id){LOAD.job=id;renderLoad();}
+function onDim(){LOAD.L=parseFloat(document.getElementById('ldL').value)||0;LOAD.W=parseFloat(document.getElementById('ldW').value)||0;computeResult();}
+function computeResult(){
+ const area=LOAD.L*LOAD.W,ae=document.getElementById('ldArea');
+ if(ae)ae.innerHTML=area>0?`Area <b>${Math.round(area).toLocaleString()} ft²</b> · ${Math.round(area*0.0929).toLocaleString()} m²`:'';
+ const out=document.getElementById('loadResult');if(!out)return;
+ const job=JOBS.find(j=>j.id===LOAD.job);
+ if(!job){out.innerHTML=`<div class="loadempty">Pick what you’re building to see your full materials list — base, surface and bedding, each with the right tonnage.</div>`;return;}
+ let total=0,anyQ=false,rows='';LOAD.calc=[];
+ job.L.forEach(([pid,depth])=>{const p=BYID[pid];const t=Math.max(0.1,Math.round(area*0.092903*(depth/1000)*p.den*10)/10);const q=p.o==='quote';if(q)anyQ=true;else total+=t*p.p;LOAD.calc.push({p,t,q});
+  rows+=`<div class="lr"><div class="ti">${swatch(p.sw,p.id)}</div><div><div class="nm">${p.n}</div><div class="ly">${depth} mm compacted · ${p.sz||p.std||p.u}</div></div><div class="qt"><b class="num">${area>0?t:'—'} t</b>${q?`<span class="q">quote</span>`:`<span class="num">${area>0?money(t*p.p):'—'}</span>`}</div></div>`;});
+ out.innerHTML=`<div class="oh"><h3>Your materials</h3><div class="jt">${job.n} · ${Math.round(area).toLocaleString()} ft²</div></div>
+  <div class="loadrows">${rows}</div>
+  <div class="loadfoot">
+   <div class="tot"><span class="l">Materials${anyQ?' (priced items)':''}</span><span class="v num">${area>0?money(total):'—'}</span></div>
+   <div class="sub">Yard-pickup pricing${anyQ?' · asphalt quoted separately':''} · delivery by postal code</div>
+   <button class="ba" onclick="addLoad()">Add the whole load to order</button>
+   <button class="bq" onclick="openQuote(${job.L[0][0]})">Request a quote for this job</button>
+   <div class="loadnote">Estimates use compacted depths and typical bulk densities. Your MSL rep confirms final quantities for the job.</div>
+  </div>`;
+}
+function addLoad(){if(!LOAD.calc||!LOAD.calc.length||LOAD.L*LOAD.W<=0){toast('Pick a job and size first');return;}let n=0;LOAD.calc.forEach(c=>{if(!c.q){add(c.p.id,null,c.t);n++;}});toast(n?`Load added — ${n} material${n>1?'s':''} in your order`:'Added');if(n)openCart();}
+
 renderHome();updateCart();
 </script>
 </body>
