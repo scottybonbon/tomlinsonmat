@@ -329,6 +329,16 @@ footer.f .bot{border-top:1px solid #2A2F37;margin-top:34px;padding-top:20px;font
 
 .toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(18px);background:var(--ink);color:#fff;font-size:13.5px;font-weight:600;padding:14px 22px;border-radius:11px;box-shadow:var(--shl);display:flex;align-items:center;gap:11px;opacity:0;pointer-events:none;transition:.25s;z-index:100}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}.toast svg{width:18px;height:18px;stroke:#5BE08C;stroke-width:2.6;fill:none}
+svg{stroke-linecap:round;stroke-linejoin:round}
+/* product photo — hybrid overlay (illustration shows through if the photo can't load) */
+.imgw,.ctile .sw,.pdpimg,.pth{position:relative;overflow:hidden}
+.ph{position:absolute;inset:0;z-index:1;overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.72) contrast(1.06) brightness(1.02);transition:transform .6s cubic-bezier(.22,.61,.36,1)}
+.card:hover .imgw .ph img,.ctile:hover .ph img{transform:scale(1.06)}
+.ph .phg{position:absolute;inset:0;background:linear-gradient(158deg,rgba(255,249,242,.1),rgba(26,22,20,.2) 82%);mix-blend-mode:soft-light;pointer-events:none}
+.ph .phn{position:absolute;inset:0;width:100%;height:100%;opacity:.4;mix-blend-mode:overlay;pointer-events:none}
+.ph .phv{position:absolute;inset:0;background:radial-gradient(120% 110% at 50% 36%,transparent 55%,rgba(0,0,0,.18));pointer-events:none}
+.card .flag{z-index:3}
 /* build your load */
 .loadcta{background:var(--ink);border-radius:16px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px;color:#fff;cursor:pointer;transition:.2s}
 .loadcta:hover{box-shadow:var(--sh2)}
@@ -609,12 +619,15 @@ let CART=[],PLP={cat:null,list:null,query:'',title:'All materials'},F={cat:[],us
 function stockHtml(s){const m={in:['in','In stock'],low:['low','Low stock'],spec:['spec','Made to order']};const[c,t]=m[s];return `<span class="stk ${c}"><span class="d"></span>${t}</span>`;}
 function priceHtml(p,big){if(p.o==='quote')return `<div class="price"><span class="q">Request pricing</span></div>`;const from=p.tr&&p.tr.length>1?'<span class="from">from</span>':'';return `<div class="price">${from}<span class="p num">${money(p.p)}</span> <span class="u">/ ${unitLabel(p.u)}</span></div>`;}
 function flagHtml(p){if(!p.fl)return '';const m={sale:'Sale',eco:'Low-carbon',rec:'Recycled',spec:'Specialty'};return `<span class="flag ${p.fl}">${m[p.fl]}</span>`;}
+const PHOTOS={granA:'photo-1677099240091-fda6c59a4609',granB:'photo-1671366673878-7a949e358614',clear:'photo-1774284982500-8445b02b667c',clearS:'photo-1774284982500-8445b02b667c',sand:'photo-1569429593410-b498b3fb3387',screen:'photo-1569429593410-b498b3fb3387',river:'photo-1754833372262-c67c2c645cd9',rca:'photo-1671366673878-7a949e358614',salt:'photo-1745192621767-0393e7161f11',trap:'photo-1672153920078-057c3e9c456d',soil:'photo-1770583287085-135748e01164',mulch:'photo-1751318391448-cf01a54fa154',limestone:'photo-1671366673878-7a949e358614'};
+function mediaPhoto(sw,name){if(!PHOTOS[sw])return'';const a=(name||'').replace(/"/g,'');return `<div class="ph"><img src="https://images.unsplash.com/${PHOTOS[sw]}?q=80&w=900&auto=format&fit=crop" alt="${a}" loading="lazy" onerror="this.closest('.ph').remove()"><div class="phg"></div><svg class="phn" viewBox="0 0 100 100" preserveAspectRatio="none"><rect width="100" height="100" filter="url(#mslGrain)"/></svg><div class="phv"></div></div>`;}
+function imgWell(p){return swatch(p.sw,p.id)+mediaPhoto(p.sw,p.n);}
 function card(p){
  const cta=p.o==='quote'
    ?`<button class="addbtn q" onclick="event.stopPropagation();openQuote(${p.id})"><svg viewBox="0 0 24 24"><path d="M8 10h8M8 14h5M5 4h14v16l-3-2-3 2-3-2-2 2z"/></svg>Quote</button>`
    :`<button class="addbtn" onclick="event.stopPropagation();add(${p.id},this)"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>Add</button>`;
  return `<article class="card reveal">
-   <div class="imgw" onclick="openPDP(${p.id})">${flagHtml(p)}${swatch(p.sw,p.id)}</div>
+   <div class="imgw" onclick="openPDP(${p.id})">${flagHtml(p)}${imgWell(p)}</div>
    <div class="b"><div class="cat">${CN[p.c]}</div>
      <div class="nm" onclick="openPDP(${p.id})">${p.n}</div>
      <div class="meta"><b>${p.sz}</b> · ${p.std}</div>
@@ -647,7 +660,7 @@ function renderHome(){
    <div class="card" onclick="openPDP(${feat.id})" style="cursor:pointer"><div class="ey2">${CN[feat.c]} · Best seller</div><div class="t">${feat.n}</div><div class="s">${feat.sz} · drainage &amp; under-slab</div><div class="prow"><b class="num">${money(feat.p)}</b><span>/ tonne</span></div></div>`;
  document.getElementById('promos').innerHTML=PROMOS.map(p=>`<div class="pcard reveal ${p.cls}"><div><div class="k">${p.k}</div><h3>${p.h}</h3><p>${p.p}</p></div><span class="lk">${p.cta} <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span><div class="sw">${swatch(p.sw,p.k.length*13)}</div></div>`).join('');
  document.getElementById('trust').innerHTML=TRUST.map(t=>`<div class="ti reveal"><div class="ic">${TIC[t[0]]}</div><div><h4>${t[1]}</h4><p>${t[2]}</p></div></div>`).join('');
- document.getElementById('cattiles').innerHTML=CATS.map(c=>{const cnt=PRODUCTS.filter(p=>p.c===c.id).length;return `<div class="ctile reveal" onclick="go('plp',{cat:'${c.id}',title:'${c.name}'})"><div class="sw">${swatch(c.sw,c.id.length*29+7)}</div><div class="lb"><div class="nm">${c.name}</div><div class="ct">${cnt} product${cnt>1?'s':''}</div></div></div>`;}).join('');
+ document.getElementById('cattiles').innerHTML=CATS.map(c=>{const cnt=PRODUCTS.filter(p=>p.c===c.id).length;return `<div class="ctile reveal" onclick="go('plp',{cat:'${c.id}',title:'${c.name}'})"><div class="sw">${swatch(c.sw,c.id.length*29+7)}${mediaPhoto(c.sw,c.name)}</div><div class="lb"><div class="nm">${c.name}</div><div class="ct">${cnt} product${cnt>1?'s':''}</div></div></div>`;}).join('');
  document.getElementById('reorder').innerHTML=[2001,2003,2027,2019,2031].map(id=>card(BYID[id])).join('');
  document.getElementById('popular').innerHTML=PRODUCTS.filter(p=>p.pop).slice(0,8).map(card).join('');
  observeReveals();
@@ -721,8 +734,8 @@ function openPDP(id){
  document.getElementById('pdpwrap').innerHTML=`
   <div class="crumb"><a href="#" onclick="go('home');return false">Home</a><span class="sep">/</span><a href="#" onclick="go('plp',{cat:'${p.c}',title:'${CN[p.c]}'});return false">${CN[p.c]}</a><span class="sep">/</span><span>${p.n}</span></div>
   <div class="pdpgrid">
-   <div class="pdpmedia"><div class="pdpimg">${swatch(p.sw,p.id)}</div>
-     <div class="pdpthumbs"><div class="pth on">${swatch(p.sw,p.id)}</div><div class="pth">${swatch(p.sw,p.id+50)}</div><div class="pth">${swatch(p.sw,p.id+90)}</div></div></div>
+   <div class="pdpmedia"><div class="pdpimg">${imgWell(p)}</div>
+     <div class="pdpthumbs"><div class="pth on">${imgWell(p)}</div><div class="pth">${swatch(p.sw,p.id+50)}</div><div class="pth">${swatch(p.sw,p.id+90)}</div></div></div>
    <div class="pdpinfo"><div class="cat">${CN[p.c]}</div><h1>${p.n}</h1>
      <p class="lead">${p.desc}</p>
      <div class="usefor"><h4>Use it for</h4><ul>${p.use.map(u=>`<li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>${u}</li>`).join('')}</ul></div>
